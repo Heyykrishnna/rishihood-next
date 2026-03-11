@@ -1,10 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import BlurText from './BlurText';
 
 const row1Images = [
   'https://framerusercontent.com/images/or5LAExZVFnZxtzcr2l40P4PE.jpg',
@@ -28,385 +26,207 @@ const row2Images = [
   'https://framerusercontent.com/images/b4oE5B46CZ13bzVwVyxMfIMLQ.jpg',
 ];
 
-// Duplicate for seamless loop
-const row1 = [...row1Images, ...row1Images];
-const row2 = [...row2Images, ...row2Images];
+const row1 = [...row1Images, ...row1Images, ...row1Images];
+const row2 = [...row2Images, ...row2Images, ...row2Images];
+
+const labels = ['Campus Life', 'Fest Vibes', 'Learning', 'Community', 'Innovation', 'Culture', 'Events', 'Growth'];
+
+function GalleryCard({ src, index }: { src: string; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const handleMouseEnter = useCallback(() => {
+    if (!cardRef.current || !overlayRef.current || !imgRef.current) return;
+    gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out' });
+    gsap.to(imgRef.current, { scale: 1.08, duration: 0.5, ease: 'power2.out' });
+    gsap.to(cardRef.current, { boxShadow: '0 16px 48px rgba(208,7,54,0.22), 0 4px 16px rgba(0,0,0,0.12)', duration: 0.3 });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!cardRef.current || !overlayRef.current || !imgRef.current) return;
+    gsap.to(overlayRef.current, { opacity: 0, duration: 0.35, ease: 'power2.in' });
+    gsap.to(imgRef.current, { scale: 1, duration: 0.45, ease: 'power2.inOut' });
+    gsap.to(cardRef.current, {
+      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+      transform: 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)',
+      duration: 0.4,
+      ease: 'power2.out',
+    });
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const rotX = ((e.clientY - rect.top - rect.height / 2) / rect.height) * -10;
+    const rotY = ((e.clientX - rect.left - rect.width / 2) / rect.width) * 10;
+    gsap.to(cardRef.current, {
+      transform: `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.04)`,
+      duration: 0.15,
+      ease: 'none',
+      overwrite: 'auto',
+    });
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      className="shrink-0 w-[clamp(200px,21vw,360px)] h-[clamp(130px,13vw,230px)] rounded-[14px] overflow-hidden relative shadow-[0_4px_20px_rgba(0,0,0,0.08)] transform-3d"
+    >
+      <img
+        ref={imgRef}
+        src={src}
+        alt={labels[index] ?? ''}
+        loading="lazy"
+        draggable={false}
+        className="w-full h-full object-cover block select-none pointer-events-none origin-center"
+      />
+
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 opacity-0 flex flex-col items-start justify-end p-4 pointer-events-none"
+        style={{ background: 'linear-gradient(160deg, rgba(208,7,54,0.55) 0%, rgba(20,10,10,0.75) 100%)' }}
+      >
+        <span className="absolute top-3 right-3 text-[0.65rem] font-bold tracking-[0.12em] text-white/60 font-mono">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <div className="w-7 h-[2.5px] bg-[#ff3d5e] rounded-sm mb-2" />
+        <span className="text-[clamp(0.75rem,1.4vw,0.95rem)] font-semibold text-white tracking-[0.04em] leading-tight font-primary">
+          {labels[index] ?? 'Campus'}
+        </span>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full h-[2.5px] bg-linear-to-r from-[#d00736] to-transparent opacity-60 pointer-events-none" />
+    </div>
+  );
+}
 
 interface MarqueeRowProps {
   images: string[];
   direction?: 'left' | 'right';
-  speed?: number; // seconds for one full loop
-  pauseOnHover?: boolean;
+  duration?: number;
 }
 
-function MarqueeRow({ images, direction = 'left', speed = 30, pauseOnHover = true }: MarqueeRowProps) {
+function MarqueeRow({ images, direction = 'left', duration = 40 }: MarqueeRowProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
-  const startX = useRef(0);
-  const currentOffset = useRef(0);
-  const animPaused = useRef(false);
-  const [dragActive, setDragActive] = useState(false);
-
-  // Pause animation on hover/drag
-  const pause = useCallback(() => {
-    if (!trackRef.current) return;
-    trackRef.current.style.animationPlayState = 'paused';
-    animPaused.current = true;
-  }, []);
-
-  const resume = useCallback(() => {
-    if (!trackRef.current || isDragging.current) return;
-    trackRef.current.style.animationPlayState = 'running';
-    animPaused.current = false;
-  }, []);
+  const dragStartX = useRef(0);
+  const dragOffset = useRef(0);
 
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     isDragging.current = true;
-    setDragActive(true);
-    startX.current = e.clientX;
-    pause();
+    dragStartX.current = e.clientX;
+    if (trackRef.current) {
+      trackRef.current.style.animationPlayState = 'paused';
+      const matrix = new WebKitCSSMatrix(getComputedStyle(trackRef.current).transform);
+      dragOffset.current = matrix.m41;
+    }
     e.preventDefault();
-  }, [pause]);
-
-  const onMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging.current || !trackRef.current) return;
-    const delta = e.clientX - startX.current;
-    const sign = direction === 'right' ? -1 : 1;
-    // Temporarily offset the animation origin via CSS custom property
-    trackRef.current.style.marginLeft = `${delta * sign * 0.4}px`;
-  }, [direction]);
-
-  const onMouseUp = useCallback(() => {
-    if (!isDragging.current || !trackRef.current) return;
-    isDragging.current = false;
-    setDragActive(false);
-    // Snap back margin and resume
-    const el = trackRef.current;
-    el.style.transition = 'margin-left 0.5s ease';
-    el.style.marginLeft = '0px';
-    setTimeout(() => {
-      if (el) el.style.transition = '';
-      resume();
-    }, 500);
-  }, [resume]);
+  }, []);
 
   useEffect(() => {
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
+    const onMove = (e: MouseEvent) => {
+      if (!isDragging.current || !trackRef.current) return;
+      const delta = (e.clientX - dragStartX.current) * (direction === 'right' ? -1 : 1);
+      trackRef.current.style.transform = `translateX(${dragOffset.current + delta}px)`;
     };
-  }, [onMouseMove, onMouseUp]);
-
-  // Touch support
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    isDragging.current = true;
-    startX.current = e.touches[0].clientX;
-    pause();
-  }, [pause]);
-
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging.current || !trackRef.current) return;
-    const delta = e.touches[0].clientX - startX.current;
-    const sign = direction === 'right' ? -1 : 1;
-    trackRef.current.style.marginLeft = `${delta * sign * 0.4}px`;
+    const onUp = () => {
+      if (!isDragging.current || !trackRef.current) return;
+      isDragging.current = false;
+      trackRef.current.style.transform = '';
+      trackRef.current.style.animationPlayState = 'running';
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
   }, [direction]);
 
-  const onTouchEnd = useCallback(() => {
-    isDragging.current = false;
-    if (trackRef.current) {
-      const el = trackRef.current;
-      el.style.transition = 'margin-left 0.5s ease';
-      el.style.marginLeft = '0px';
-      setTimeout(() => {
-        if (el) el.style.transition = '';
-        resume();
-      }, 500);
-    }
-  }, [resume]);
-
-  const animName = direction === 'left' ? 'marquee-left' : 'marquee-right';
+  const animName = direction === 'left' ? 'g-marquee-left' : 'g-marquee-right';
 
   return (
     <div
-      className="gallery-row w-full overflow-hidden"
-      style={{ cursor: dragActive ? 'grabbing' : 'grab', userSelect: 'none' }}
-      onMouseEnter={pauseOnHover ? pause : undefined}
-      onMouseLeave={pauseOnHover ? resume : undefined}
+      className="w-full overflow-hidden cursor-grab"
+      onMouseEnter={() => { if (!isDragging.current && trackRef.current) trackRef.current.style.animationPlayState = 'paused'; }}
+      onMouseLeave={() => { if (!isDragging.current && trackRef.current) trackRef.current.style.animationPlayState = 'running'; }}
       onMouseDown={onMouseDown}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
     >
       <div
         ref={trackRef}
-        style={{
-          display: 'flex',
-          gap: '12px',
-          width: 'max-content',
-          animation: `${animName} ${speed}s linear infinite`,
-          willChange: 'transform',
-        }}
+        className="flex gap-3.5 w-max py-2 will-change-transform"
+        style={{ animation: `${animName} ${duration}s linear infinite` }}
       >
         {images.map((src, i) => (
-          <GalleryCard key={i} src={src} index={i} />
+          <GalleryCard key={i} src={src} index={i % row1Images.length} />
         ))}
       </div>
     </div>
   );
 }
 
-function GalleryCard({ src, index }: { src: string; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
-    const rotX = ((y - cy) / cy) * -8;
-    const rotY = ((x - cx) / cx) * 8;
-    el.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.05)`;
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-  }, []);
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        flexShrink: 0,
-        width: 'clamp(220px, 22vw, 380px)',
-        height: 'clamp(140px, 14vw, 240px)',
-        borderRadius: '12px',
-        overflow: 'hidden',
-        position: 'relative',
-        transition: 'transform 0.15s ease, box-shadow 0.2s ease',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-        transformStyle: 'preserve-3d',
-      }}
-    >
-      {/* Shimmer overlay on hover */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%)',
-          zIndex: 2,
-          opacity: 0,
-          transition: 'opacity 0.2s',
-          borderRadius: 'inherit',
-          pointerEvents: 'none',
-        }}
-        className="card-shimmer"
-      />
-      {/* Red accent line */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '3px',
-          background: 'linear-gradient(90deg, #d00736, transparent)',
-          zIndex: 3,
-          transform: 'scaleX(0)',
-          transformOrigin: 'left',
-          transition: 'transform 0.35s ease',
-        }}
-        className="card-accent"
-      />
-      <img
-        src={src}
-        alt=""
-        loading="lazy"
-        draggable={false}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          display: 'block',
-          transition: 'transform 0.4s ease',
-          userSelect: 'none',
-          pointerEvents: 'none',
-        }}
-      />
-    </div>
-  );
-}
-
 export default function Gallery() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    // Inject keyframes into document if not already present
-    const styleId = 'gallery-marquee-styles';
-    if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id = styleId;
-      style.textContent = `
-        @keyframes marquee-left {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        @keyframes marquee-right {
-          0%   { transform: translateX(-50%); }
-          100% { transform: translateX(0); }
-        }
-        .gallery-card-wrap:hover .card-shimmer { opacity: 1 !important; }
-        .gallery-card-wrap:hover .card-accent  { transform: scaleX(1) !important; }
-      `;
-      document.head.appendChild(style);
-    }
-  }, []);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.gallery-header-block',
-        { opacity: 0, y: 50, scale: 0.96 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.gallery-header-block',
-            start: 'top 85%',
-          },
-        }
-      );
-      gsap.fromTo(
-        '.gallery-row',
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          },
-        }
-      );
-    }, sectionRef);
-    return () => ctx.revert();
+    const styleId = 'g-marquee-styles';
+    if (document.getElementById(styleId)) return;
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      @keyframes g-marquee-left {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-33.333%); }
+      }
+      @keyframes g-marquee-right {
+        0%   { transform: translateX(-33.333%); }
+        100% { transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(style);
   }, []);
 
   return (
-    <section
-      id="gallery"
-      ref={sectionRef}
-      className="w-full bg-[#fcf7ef] py-10 md:py-14 font-primary overflow-hidden relative"
-    >
-      {/* Ambient glow */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          width: 700,
-          height: 700,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(208,7,54,0.07) 0%, transparent 68%)',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
+    <section id="gallery" className="w-full bg-[#fcf7ef] py-14 md:py-20 font-primary overflow-hidden relative">
 
-      {/* Subtle watermark */}
-      <img
-        src="https://framerusercontent.com/images/O5hT3Jtin2BIPCMxXf47RnB50.png?width=2862&height=3525"
-        alt=""
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          width: '55%',
-          maxWidth: 700,
-          minWidth: 280,
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.03,
-          zIndex: 0,
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
-      />
+      <div aria-hidden="true" className="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(208,7,54,0.08) 0%, transparent 70%)' }} />
 
-      {/* Row 1 — scrolls left */}
-      <MarqueeRow images={row1} direction="left" speed={35} />
+      <div aria-hidden="true" className="absolute inset-0 opacity-50 pointer-events-none z-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(208,7,54,0.06) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
 
-      {/* Center text block */}
-      <div className="gallery-header-block relative z-10 text-center mx-auto max-w-5xl px-6 py-8 md:py-10">
-        {/* Decorative line */}
-        <div
-          style={{
-            width: 48,
-            height: 3,
-            background: 'linear-gradient(90deg, #d00736, #ff6b6b)',
-            margin: '0 auto 20px',
-            borderRadius: 2,
-          }}
-        />
-        <h2
-          style={{
-            fontFamily: '"Alike Angular", serif',
-            fontSize: 'clamp(1.4rem, 3.5vw, 2.4rem)',
-            fontWeight: 400,
-            color: '#1a1a1a',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.2,
-            marginBottom: '0.75rem',
-          }}
-        >
-          Experience the{' '}
-          <span style={{ color: '#d00736', fontStyle: 'italic' }}>
-            Rishihood Campus
-          </span>
-        </h2>
-        <p
-          style={{
-            color: '#666',
-            fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)',
-            fontWeight: 400,
-            maxWidth: 520,
-            margin: '0 auto',
-            lineHeight: 1.7,
-            letterSpacing: '0.01em',
-          }}
-        >
-          Our campus fests celebrate culture, creativity, and community, bringing
-          learners together in moments that become memories.
-        </p>
-        {/* Decorative line bottom */}
-        <div
-          style={{
-            width: 48,
-            height: 3,
-            background: 'linear-gradient(90deg, transparent, #d00736)',
-            margin: '20px auto 0',
-            borderRadius: 2,
-          }}
-        />
+      <div className="relative z-1">
+        <MarqueeRow images={row1} direction="left" duration={40} />
       </div>
 
-      {/* Row 2 — scrolls right */}
-      <MarqueeRow images={row2} direction="right" speed={40} />
+      <div className="relative z-2 text-center max-w-4xl mx-auto px-6 py-10">
+        <span className="inline-block text-[0.65rem] font-bold tracking-[0.18em] text-[#d00736] uppercase mb-4 font-primary">
+          Campus Gallery
+        </span>
+
+        <BlurText
+          text="Experience Rishihood"
+          delay={50}
+          animateBy="letters"
+          direction="bottom"
+          className="text-xl md:text-5xl font-semibold justify-center text-[#d00736] mb-4"
+        />
+
+        <div className="flex items-center gap-2.5 justify-center mb-4">
+          <div className="flex-1 max-w-[60px] h-px bg-[#d00736]/25" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#d00736]" />
+          <div className="flex-1 max-w-[60px] h-px bg-[#d00736]/25" />
+        </div>
+
+        <p className="text-[#666] text-[clamp(0.8rem,1.4vw,0.9rem)] font-normal leading-[1.75] tracking-[0.01em] max-w-[460px] mx-auto">
+          Our campus fests celebrate culture, creativity, and community, bringing learners together in moments that become memories.
+        </p>
+      </div>
+
+      <div className="relative z-1">
+        <MarqueeRow images={row2} direction="right" duration={48} />
+      </div>
+
     </section>
   );
 }

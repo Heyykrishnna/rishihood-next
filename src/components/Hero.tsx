@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type PanInfo } from 'framer-motion';
 import { Book, GraduationCap, Users, Home, ArrowRight, Calendar, Building2 } from 'lucide-react';
 import BlurText from './BlurText';
 
@@ -83,7 +83,7 @@ export default function Hero() {
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.2}
-        onDragEnd={(_e, { offset, velocity }) => {
+        onDragEnd={(_e: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
           const swipe = swipePower(offset.x, velocity.x);
           if (swipe < -swipeConfidenceThreshold) {
             setCurrentSlide((prev) => (prev + 1) % slides.length);

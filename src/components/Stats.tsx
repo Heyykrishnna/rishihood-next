@@ -55,13 +55,12 @@ export default function Stats() {
     <section id="stats" className="w-full bg-[#fcfaf5] py-14 px-4 md:px-12 lg:px-24 font-primary overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col gap-6 md:gap-8">
         
-        {/* ── Row 1: Text card + Image card ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
           <ScrubCard 
             direction="left"
-            className="lg:col-span-6 xl:col-span-5 group bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-center items-start
+            className={`lg:col-span-6 xl:col-span-5 group bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-center items-start
               transition-all duration-500 ease-out
-              hover:shadow-[0_8px_40px_rgba(208,7,54,0.10)] hover:border-[#f0c6cf] hover:-translate-y-1"
+              hover:shadow-[0_8px_40px_rgba(208,7,54,0.10)] hover:border-[#f0c6cf] hover:-translate-y-1`}
           >
             <BlurText
               text="Approaching Rishihood"
@@ -81,7 +80,6 @@ export default function Stats() {
               hover:shadow-[0_6px_24px_rgba(208,7,54,0.40)] hover:-translate-y-0.5 hover:bg-[#b8052e]
               active:translate-y-0 active:shadow-md group/btn">
               <span className="relative z-10">Download Brochure</span>
-              {/* shimmer sweep */}
               <span className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/20 to-transparent" />
             </button>
           </ScrubCard>
@@ -100,14 +98,12 @@ export default function Stats() {
           </ScrubCard>
         </div>
 
-        {/* ── Row 2: Quote card ── */}
         <ScrubCard 
           direction="left"
           className="group bg-white rounded-2xl md:rounded-3xl shadow-sm border border-gray-100 relative overflow-hidden flex flex-col md:flex-row items-center pt-10 md:pt-0
             transition-all duration-500 ease-out
             hover:shadow-[0_8px_40px_rgba(208,7,54,0.08)] hover:border-[#f5dde2] hover:-translate-y-0.5"
         >
-          {/* Animated warm glow on hover */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
             style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(208,7,54,0.04) 0%, transparent 70%)' }}
           />
@@ -126,7 +122,6 @@ export default function Stats() {
           </div>
           
           <div className="w-full md:w-2/3 py-10 px-8 md:pr-24 md:pl-8 relative z-10 text-center md:text-left mt-4 md:mt-0">
-            {/* Decorative quote mark */}
             <span className="text-[80px] leading-none text-[#d00736]/10 font-serif absolute top-6 left-8 md:left-auto md:right-28 pointer-events-none select-none group-hover:text-[#d00736]/20 transition-colors duration-500">"</span>
             <p className="text-[#666] text-md lg:text-[18px] leading-relaxed mb-4 font-medium max-w-5xl italic">
               "We must also remember that the leaders of our societies have never been either generals or kings, but Rishis... If there have been sages and Rishis in the past, be sure that there will be many now."
@@ -137,7 +132,6 @@ export default function Stats() {
           </div>
         </ScrubCard>
 
-        {/* ── Row 3: Stat cards ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <ScrubCard 
             direction="left"
@@ -148,7 +142,6 @@ export default function Stats() {
             <LeafSVG className="absolute right-0 top-1/2 -translate-y-1/2 w-[300px] md:w-[400px] h-auto opacity-30 translate-x-[20%] pointer-events-none
               transition-all duration-700 group-hover:opacity-50 group-hover:scale-105" />
 
-            {/* Background glow pulse on hover */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at 20% 50%, rgba(208,7,54,0.05) 0%, transparent 65%)' }}
             />
@@ -169,7 +162,6 @@ export default function Stats() {
               Learners & Alumni thriving impact-first network
             </p>
 
-            {/* Bottom accent line */}
             <div className="absolute bottom-0 left-0 h-[3px] w-0 group-hover:w-full bg-linear-to-r from-[#d00736] to-[#ff6b35] transition-all duration-500 ease-out rounded-b-3xl" />
           </ScrubCard>
 
@@ -182,7 +174,6 @@ export default function Stats() {
             <LeafSVG className="absolute left-0 lg:right-20 bottom-0 lg:top-1/2 w-[160px] md:w-[250px] lg:w-[100px] h-auto opacity-80 lg:-translate-y-1/2 lg:translate-x-[20%] pointer-events-none translate-y-[20%] lg:!translate-y-[-50%]
               transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
 
-            {/* Background glow */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(208,7,54,0.05) 0%, transparent 65%)' }}
             />
@@ -221,7 +212,6 @@ export default function Stats() {
               </div>
             </div>
 
-            {/* Bottom accent line */}
             <div className="absolute bottom-0 right-0 h-[3px] w-0 group-hover:w-full bg-linear-to-l from-[#d00736] to-[#ff6b35] transition-all duration-500 ease-out rounded-b-3xl" />
           </ScrubCard>
         </div>
