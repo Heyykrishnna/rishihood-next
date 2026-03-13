@@ -173,7 +173,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section id="gallery" className="w-full bg-[#fcf7ef] py-14 md:py-20 font-primary overflow-hidden relative">
+    <section id="gallery" className="w-full bg-white py-14 md:py-20 font-primary overflow-hidden relative">
 
       <div aria-hidden="true" className="absolute w-[800px] h-[800px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0" style={{ background: 'radial-gradient(circle, rgba(208,7,54,0.08) 0%, transparent 70%)' }} />
 
