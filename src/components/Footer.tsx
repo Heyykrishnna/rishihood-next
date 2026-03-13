@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
+import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -193,15 +194,12 @@ export default function Footer() {
       </div>
 
       <div className="w-full flex justify-center items-end mt-auto px-4 md:px-8 xl:px-12 pb-4 overflow-hidden relative">
-        <h1 
-          ref={textRef} 
-          className="text-[16vw] sm:text-[16vw] font-black text-white leading-none tracking-tighter select-none relative m-0 p-0 origin-bottom"
-        >
-          Rishihood
-          <span className="absolute -top-[5%] md:top-[2%] -right-[6%] md:-right-[8%] text-[3vw] sm:text-[2.5vw] font-normal tracking-normal text-white/50 border-2 border-white/50 rounded-full w-[4vw] h-[4vw] sm:w-[3.5vw] sm:h-[3.5vw] flex items-center justify-center pt-px">
+        <div ref={textRef} className="w-full flex justify-center relative items-center min-h-[150px] md:min-h-[300px]">
+          <TextHoverEffect text="RISHIHOOD" />
+          <span className="absolute top-[10%] md:top-[15%] right-[2%] md:right-[5%] text-[3vw] sm:text-[2.5vw] font-normal tracking-normal text-white/50 border-2 border-white/50 rounded-full w-[4vw] h-[4vw] sm:w-[3.5vw] sm:h-[3.5vw] flex items-center justify-center pt-px pointer-events-none">
             C
           </span>
-        </h1>
+        </div>
       </div>
     </footer>
   );
