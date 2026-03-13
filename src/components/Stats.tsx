@@ -18,24 +18,30 @@ function ScrubCard({ children, direction, className }: { children: ReactNode; di
 
   const x = useTransform(
     smoothProgress, 
-    [0, 0.2, 0.8, 1], 
-    [direction === 'left' ? -60 : 60, 0, 0, direction === 'left' ? -60 : 60]
+    [0, 0.25, 0.75, 1], 
+    [direction === 'left' ? -100 : 100, 0, 0, direction === 'left' ? -100 : 100]
   );
   
   const opacity = useTransform(
     smoothProgress, 
-    [0, 0.2, 0.8, 1], 
+    [0, 0.15, 0.85, 1], 
     [0, 1, 1, 0]
   );
 
   const scale = useTransform(
     smoothProgress,
-    [0, 0.2, 0.8, 1],
-    [0.97, 1, 1, 0.97]
+    [0, 0.25, 0.75, 1],
+    [0.9, 1, 1, 0.9]
+  );
+
+  const rotate = useTransform(
+    smoothProgress,
+    [0, 0.25, 0.75, 1],
+    [direction === 'left' ? -1.5 : 1.5, 0, 0, direction === 'left' ? 1.5 : -1.5]
   );
   
   return (
-    <motion.div ref={ref} style={{ x, opacity, scale }} className={className}>
+    <motion.div ref={ref} style={{ x, opacity, scale, rotate, willChange: 'transform, opacity' }} className={className}>
       {children}
     </motion.div>
   );

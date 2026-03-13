@@ -149,7 +149,7 @@ function MarqueeRow({ images, direction = 'left', duration = 40 }: MarqueeRowPro
     const onMove = (e: MouseEvent) => {
       if (!isDragging.current || !trackRef.current) return;
       const delta = (e.clientX - dragStartX.current) * (direction === 'right' ? -1 : 1);
-      trackRef.current.style.transform = `translateX(${dragOffset.current + delta}px)`;
+      trackRef.current.style.transform = `translate3d(${dragOffset.current + delta}px, 0, 0)`;
     };
     const onUp = () => {
       if (!isDragging.current || !trackRef.current) return;
@@ -177,7 +177,7 @@ function MarqueeRow({ images, direction = 'left', duration = 40 }: MarqueeRowPro
       <div
         ref={trackRef}
         className="flex gap-3.5 w-max py-2 will-change-transform"
-        style={{ animation: `${animName} ${duration}s linear infinite` }}
+        style={{ animation: `${animName} ${duration}s linear infinite`, transform: 'translate3d(0, 0, 0)' }}
       >
         {images.map((src, i) => (
           <GalleryCard key={i} src={src} index={i % row1Images.length} />
@@ -195,12 +195,12 @@ export default function Gallery() {
     style.id = styleId;
     style.textContent = `
       @keyframes g-marquee-left {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(-33.333%); }
+        0%   { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(-33.333%, 0, 0); }
       }
       @keyframes g-marquee-right {
-        0%   { transform: translateX(-33.333%); }
-        100% { transform: translateX(0); }
+        0%   { transform: translate3d(-33.333%, 0, 0); }
+        100% { transform: translate3d(0, 0, 0); }
       }
     `;
     document.head.appendChild(style);

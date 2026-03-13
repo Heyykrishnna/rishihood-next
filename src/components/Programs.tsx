@@ -82,7 +82,14 @@ export default function Programs() {
               const isFoundation = program.title === "Rishihood Foundation";
               
               return (
-                <div key={idx} className="flex flex-col">
+                <motion.div 
+                  key={idx} 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="flex flex-col"
+                >
                   <button
                     onClick={() => setActiveIndex(isActive ? -1 : idx)}
                     className={`text-left w-full transition-all duration-300 cursor-pointer ${
@@ -153,12 +160,18 @@ export default function Programs() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
-          <div className="hidden lg:flex w-2/3 bg-[#fcf7ef] rounded-3xl p-10 flex-col md:flex-row gap-8 items-stretch overflow-hidden relative min-h-[450px]">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="hidden lg:flex w-2/3 bg-[#fcf7ef] rounded-3xl p-10 flex-col md:flex-row gap-8 items-stretch overflow-hidden relative min-h-[450px] shadow-[0_4px_30px_rgba(208,7,54,0.04)] border border-[#f5dde2]/40"
+          >
             
             <AnimatePresence mode="wait">
               {activeIndex !== -1 && (
@@ -218,7 +231,7 @@ export default function Programs() {
               )}
             </AnimatePresence>
 
-          </div>
+          </motion.div>
 
         </div>
       </div>
