@@ -1,118 +1,207 @@
-import { Instagram, Facebook, X, Linkedin, Youtube, MapPin } from 'lucide-react';
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { Instagram, Youtube, MapPin, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaLinkedinIn } from "react-icons/fa6";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
-  return (
-    <footer
-      className="w-full bg-[#7a131f] bg-cover bg-center text-white font-primary relative overflow-hidden"
-      style={{ backgroundImage: "url('https://framerusercontent.com/images/hH2gmaNjYV9HFgBScNHFf0dYc.png?width=4800&height=1224')" }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-16 pb-8 flex flex-col relative z-10">
-        <div className="flex flex-col justify-start lg:flex-row lg:justify-between items-start lg:items-center lg:gap-8 mb-8 lg:mb-12 pointer-events-none w-full">
+  const containerRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const linksRef = useRef<HTMLDivElement>(null);
 
-          <div className="flex flex-row items-center justify-between lg:justify-start w-full lg:w-auto lg:gap-8 xl:gap-12 mb-8 lg:mb-0">
-            <div className="flex flex-col items-start w-[45%] lg:w-auto">
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (textRef.current) {
+        gsap.fromTo(
+          textRef.current,
+          { opacity: 0, y: 150, scale: 0.9 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.5,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 70%",
+              end: "bottom bottom",
+              scrub: 1,
+            }
+          }
+        );
+      }
+
+      if (linksRef.current) {
+        const elements = linksRef.current.querySelectorAll('.footer-col');
+        gsap.fromTo(
+          elements,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 80%",
+            }
+          }
+        );
+      }
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <footer ref={containerRef} className="w-full bg-[#0a0a0a] text-white font-primary relative overflow-hidden pt-24 min-h-screen flex flex-col justify-between selection:bg-[#d00736]/30">
+      
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/2 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#d00736]/5 rounded-full blur-[120px] pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 xl:px-20 relative z-10 flex-1 flex flex-col">
+        
+        <div ref={linksRef} className="flex flex-col xl:flex-row justify-between w-full gap-16 xl:gap-8 mb-20">
+          
+          <div className="w-full xl:w-4/12 flex flex-col justify-between footer-col">
+            <div>
               <img
                 src="https://framerusercontent.com/images/NKvCUEL0ORnQgJto11PdvOykNk.png?scale-down-to=512&width=704&height=280"
                 alt="Rishihood University Logo"
-                className="h-10 md:h-14 lg:h-16 object-contain brightness-0 invert mb-2 md:mb-4 lg:mb-4"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                className="h-12 md:h-16 object-contain brightness-0 invert mb-6"
               />
-              <p className="text-[#e2e2e2] text-[10px] md:text-lg font-medium tracking-wider text-left">
+              <p className="text-[#888] text-sm md:text-base font-medium tracking-[0.2em] mb-12 uppercase">
                 व्यक्ति | विचार | व्यवस्था
               </p>
             </div>
 
-            <div className="w-px h-16 md:h-20 bg-white/30 mx-2 lg:hidden"></div>
+            <div className="flex flex-col gap-10 mt-auto">
+              <div className="flex flex-col gap-3">
+                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555]">Campus</span>
+                <div className="flex items-start gap-3 group">
+                  <MapPin className="w-5 h-5 text-[#d00736] shrink-0 mt-0.5" />
+                  <p className="text-[#ddd] text-sm md:text-[15px] font-light leading-relaxed max-w-[280px] group-hover:text-white transition-colors duration-300">
+                    NH-44 (GT Road), Delhi NCR,<br />
+                    Sonipat, Haryana 131021
+                  </p>
+                </div>
+              </div>
 
-            <div className="hidden lg:block w-px h-[120px] bg-white/40"></div>
-
-            <div className="w-[50%] flex justify-end lg:hidden">
-              <img
-                src="https://framerusercontent.com/images/IfI0ogz13RBjHXhiYwsz98JETHM.png?width=1606&height=537"
-                alt="Campus Outline"
-                className="w-full max-w-[180px] sm:max-w-xs h-auto object-contain drop-shadow-md brightness-0 invert opacity-90"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
+              <div className="flex flex-col gap-3">
+                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555]">Contact Us</span>
+                <div className="flex flex-col gap-1">
+                  <a href="tel:18001206631" className="text-white text-xl font-medium hover:text-[#d00736] transition-colors duration-300">1800-120-6631</a>
+                  <a href="mailto:namaste@rishihood.edu.in" className="text-[#888] hover:text-white text-sm font-light transition-colors duration-300">namaste@rishihood.edu.in</a>
+                </div>
+              </div>
             </div>
-
-            <div className="hidden lg:flex lg:w-auto justify-start pr-4 xl:pr-8">
-              <img
-                src="https://framerusercontent.com/images/IfI0ogz13RBjHXhiYwsz98JETHM.png?width=1606&height=537"
-                alt="Campus Outline"
-                className="w-full max-w-sm lg:max-w-md xl:max-w-[420px] h-auto object-contain drop-shadow-md brightness-0 invert"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              />
-            </div>
-
-            <div className="hidden lg:block w-px h-[120px] bg-white/40"></div>
           </div>
 
-          <div className="w-full h-px bg-white/20 mb-6 lg:hidden"></div>
-
-          <div className="flex flex-row justify-between lg:justify-end gap-8 md:gap-24 lg:gap-16 w-full lg:w-auto pointer-events-auto px-1 md:px-0">
-            <div className="flex flex-col gap-3 lg:w-auto">
-              <h4 className="font-semibold text-[16px] md:text-lg text-white">Resources</h4>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Blogs</a>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Events</a>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Media</a>
+          <div className="w-full xl:w-8/12 flex flex-col justify-between">
+            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-4 mb-20 footer-col">
+              <div className="flex flex-col gap-5">
+                <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555] mb-2">Explore</h4>
+                {['Our Story', 'Leadership', 'Academics', 'Campus Life'].map((item) => (
+                  <Link key={item} href="#" className="group flex items-center gap-2 text-[#aaa] hover:text-white text-[15px] font-light transition-colors duration-300 w-fit">
+                    <span className="relative overflow-hidden">
+                      {item}
+                      <span className="absolute bottom-0 left-0 w-full h-1 bg-[#d00736] -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <div className="flex flex-col gap-5">
+                <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555] mb-2">Admissions</h4>
+                {['Undergraduate', 'Postgraduate', 'Ph.D', 'Fees & Aid'].map((item) => (
+                  <Link key={item} href="#" className="group flex items-center gap-2 text-[#aaa] hover:text-white text-[15px] font-light transition-colors duration-300 w-fit">
+                    <span className="relative overflow-hidden">
+                      {item}
+                      <span className="absolute bottom-0 left-0 w-full h-1 bg-[#d00736] -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <div className="flex flex-col gap-5">
+                <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555] mb-2">Resources</h4>
+                {['Blogs', 'Events', 'Media', 'Careers'].map((item) => (
+                  <Link key={item} href="#" className="group flex items-center gap-2 text-[#aaa] hover:text-white text-[15px] font-light transition-colors duration-300 w-fit">
+                    <span className="relative overflow-hidden">
+                      {item}
+                      <span className="absolute bottom-0 left-0 w-full h-1 bg-[#d00736] -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              <div className="flex flex-col gap-5">
+                <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555] mb-2">Legal</h4>
+                {['Disclosures', 'Privacy Policy', 'Terms of Use', 'UGC Status'].map((item) => (
+                  <Link key={item} href="#" className="group flex items-center gap-2 text-[#aaa] hover:text-white text-[15px] font-light transition-colors duration-300 w-fit">
+                    <span className="relative overflow-hidden">
+                      {item}
+                      <span className="absolute bottom-0 left-0 w-full h-1 bg-[#d00736] -translate-x-[101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-col gap-3 lg:w-auto">
-              <h4 className="font-semibold text-[16px] md:text-lg text-white">Quick Links</h4>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Our Story</a>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Schedule Campus Visit</a>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Mandatory Disclosures</a>
-              <a href="#" className="text-white hover:text-white transition-colors text-[14px] md:text-sm font-light">Contact Us</a>
+
+            <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mt-auto border-t border-white/10 pt-10 footer-col">
+              <div className="flex flex-col gap-5">
+                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555]">Connect With Us</span>
+                <div className="flex items-center gap-3">
+                  {[
+                    { icon: Instagram, href: '#' },
+                    { icon: FaWhatsapp, href: '#' },
+                    { icon: FaXTwitter, href: '#' },
+                    { icon: FaLinkedinIn, href: '#' },
+                    { icon: Youtube, href: '#' }
+                  ].map((social, idx) => (
+                    <a
+                      key={idx}
+                      href={social.href}
+                      className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#888] hover:bg-white hover:text-[#0a0a0a] hover:scale-110 transition-all duration-300"
+                    >
+                      <social.icon className="w-[18px] h-[18px]" strokeWidth={1.5} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-5 md:items-end max-w-sm">
+                <span className="text-[#888] text-xs font-light tracking-wide text-left md:text-right leading-relaxed mb-1">
+                  Established by Rishihood Foundation, a non-profit company under Section 8 of the Companies Act, 2013.
+                </span>
+                <a href='https://apply.rishihood.edu.in/' target='_blank'>
+                  <button className="group relative overflow-hidden cursor-pointer bg-[#d00736] text-white py-4 pl-8 pr-16 rounded-full font-medium text-[15px] tracking-wide shadow-xl active:scale-95 transition-all duration-300 self-start md:self-auto">
+                    <span className="relative z-10">Apply For 2026</span>
+                    <div className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 flex items-center justify-center z-10 transition-transform duration-300 group-hover:bg-white group-hover:text-[#d00736]">
+                      <ArrowRight className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-all duration-300" />
+                    </div>
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="w-full h-px bg-white/20 mb-6"></div>
-
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 lg:gap-0 mb-6 px-1 md:px-0 w-full">
-          <div className="flex items-center justify-start gap-3 lg:gap-4 lg:w-1/3">
-            <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#7a131f] hover:scale-105 transition-transform">
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#7a131f] hover:scale-105 transition-transform">
-              <Facebook className="w-4 h-4" />
-            </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#7a131f] hover:scale-105 transition-transform">
-              <X className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.007 4.15H5.059z" />
-              </X>
-            </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#7a131f] hover:scale-105 transition-transform">
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a href="#" className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#7a131f] hover:scale-105 transition-transform">
-              <Youtube className="w-4 h-4" />
-            </a>
-          </div>
-
-          <div className="flex items-start lg:items-center justify-start lg:justify-center gap-3 text-[#e2e2e2] lg:w-1/3 mt-2 lg:mt-0">
-            <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5 lg:mt-0" />
-            <span className="text-[10px] md:text-[13px] font-medium tracking-wide text-white leading-relaxed">
-              NH-44 (GT Road), Delhi NCR, Sonipat, Haryana 131021
-            </span>
-          </div>
-
-          <div className="w-full lg:w-1/3 flex justify-start lg:justify-end mt-2 lg:mt-0">
-            <button className="w-full lg:w-auto border border-white/50 bg-[#3a090f]/40 hover:bg-[#3a090f]/60 cursor-pointer backdrop-blur-sm text-white px-10 py-3.5 md:py-3 lg:px-12 rounded-lg md:rounded-md transition-all duration-300 text-[15px] md:text-sm font-medium tracking-wide">
-              Apply Now
-            </button>
-          </div>
-        </div>
-
-        <div className="w-full h-px bg-white/20 mb-4"></div>
-
-        <div className="text-center text-xs text-white font-medium tracking-wide px-4 md:px-0 opacity-80 leading-relaxed md:leading-normal">
-          <p className="inline md:block">
-            Rishihood University is established by Rishihood Foundation,{' '}
-          </p>
-          <p className="inline md:block">
-            a non-profit company under Section 8 of the Companies Act, 2013. All Rights Reserved, 2025
-          </p>
-        </div>
+      <div className="w-full flex justify-center items-end mt-auto px-4 md:px-8 xl:px-12 pb-4 overflow-hidden relative">
+        <h1 
+          ref={textRef} 
+          className="text-[16vw] sm:text-[16vw] font-black text-white leading-none tracking-tighter select-none relative m-0 p-0 origin-bottom"
+        >
+          Rishihood
+          <span className="absolute -top-[5%] md:top-[2%] -right-[6%] md:-right-[8%] text-[3vw] sm:text-[2.5vw] font-normal tracking-normal text-white/50 border-2 border-white/50 rounded-full w-[4vw] h-[4vw] sm:w-[3.5vw] sm:h-[3.5vw] flex items-center justify-center pt-px">
+            C
+          </span>
+        </h1>
       </div>
     </footer>
   );

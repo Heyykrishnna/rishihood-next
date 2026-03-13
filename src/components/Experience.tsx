@@ -69,6 +69,46 @@ const experiences = [
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
+  {
+    id: '07',
+    title: 'From Ideas to Impact',
+    tag: 'Real World Projects',
+    description:
+      'From building apps to crafting design prototypes and pitching business ideas our foundation program fosters cross-disciplinary collaboration from day one.',
+    image: 'https://framerusercontent.com/images/xMRNDlEGu84kU4J44NqwaoAsvs.jpg?scale-down-to=4096&width=5184&height=3456',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '08',
+    title: 'Immersive Media Lab',
+    tag: 'AI & Immersive Media',
+    description:
+      'Step into the future of storytelling. Our Immersive Media Lab combines AI, VR, and AR to create experiences that blur the line between the digital and the real.',
+    image: 'https://framerusercontent.com/images/ApOp5zC7z19QtRGYSSTnXVXM4.png?scale-down-to=1024&width=1248&height=749',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '09',
+    title: 'Sports Facilities',
+    tag: 'Sports',
+    description:
+      'From state-of-the-art gyms to sprawling sports fields, we provide the infrastructure for you to push your limits and play your best.',
+    image: 'https://framerusercontent.com/images/iOhsWz43ozNecZ0xak1FGgF4dXw.jpg?width=4096&height=2731',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '10',
+    title: 'A Campus That Inspires',
+    tag: 'Campus Life',
+    description:
+      'Explore of our 25-acre, living-learning campus with immersive labs, green spaces, and places to grow in every direction.',
+    image: 'https://framerusercontent.com/images/XFjzi1N8IY9NG8fcSIM2Ev9sc.webp?width=680&height=377',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
 ];
 
 type Experience = typeof experiences[0];
@@ -165,8 +205,8 @@ function GalleryCard({ exp, onClick }: { exp: Experience; onClick: () => void })
   return (
     <button
       onClick={onClick}
-      className="group relative shrink-0 w-[80vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw] h-full rounded-3xl overflow-hidden cursor-pointer text-left focus:outline-none"
-      style={{ aspectRatio: '3/4' }}
+      className="group relative shrink-0 w-[85vw] md:w-[45vw] lg:w-[38vw] xl:w-[32vw] h-full rounded-3xl overflow-hidden cursor-pointer text-left focus:outline-none"
+      style={{ aspectRatio: '4/5' }}
     >
       <img
         src={exp.image}
