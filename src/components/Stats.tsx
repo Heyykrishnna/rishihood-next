@@ -171,7 +171,7 @@ export default function Stats() {
               transition-all duration-500 ease-out
               hover:shadow-[0_8px_40px_rgba(208,7,54,0.10)] hover:border-[#f0c6cf] hover:-translate-y-1"
           >
-            <LeafSVG className="absolute left-0 lg:right-20 bottom-0 lg:top-1/2 w-[160px] md:w-[250px] lg:w-[100px] h-auto opacity-80 lg:-translate-y-1/2 lg:translate-x-[20%] pointer-events-none translate-y-[20%] lg:!translate-y-[-50%]
+            <LeafSVG className="absolute left-0 lg:right-20 bottom-0 lg:top-1/2 w-[160px] md:w-[250px] lg:w-[100px] h-auto opacity-80 lg:-translate-y-1/2 lg:translate-x-[20%] pointer-events-none translate-y-[20%] lg:-translate-y-1/2
               transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
 
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
