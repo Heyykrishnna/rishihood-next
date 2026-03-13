@@ -73,18 +73,28 @@ export default function Navbar() {
   return (
     <>
       <div className={`fixed top-0 left-0 w-full z-100 px-4 md:px-12 py-4 md:py-6 flex justify-between items-center pointer-events-none transition-colors duration-500`}>
-        
-        {/* Left: Logo */}
         <button 
           onClick={scrollToTop} 
           className="pointer-events-auto flex items-center cursor-pointer group"
         >
-            <img 
-              src="https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319" 
-              alt="Rishihood University Logo" 
-              className={`h-8 md:h-10 lg:h-12 w-auto object-contain transition-all duration-500`}
+          <div className="relative h-8 md:h-10 lg:h-12">
+            <img
+              src="https://framerusercontent.com/images/NKvCUEL0ORnQgJto11PdvOykNk.png?scale-down-to=512&width=704&height=280"
+              alt="Rishihood University Logo"
+              className={`h-full w-auto object-contain brightness-0 invert transition-opacity duration-700 ease-in-out ${
+                isScrolled ? 'opacity-0' : 'opacity-100'
+              }`}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
+            <img
+              src="https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319"
+              alt="Rishihood University Logo"
+              className={`h-full w-auto object-contain absolute top-0 left-0 transition-opacity duration-700 ease-in-out ${
+                isScrolled ? 'opacity-100' : 'opacity-0'
+              }`}
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
+          </div>
         </button>
 
         <div className="pointer-events-auto">
@@ -110,6 +120,7 @@ export default function Navbar() {
             exit="closed"
             variants={menuVariants}
             className="fixed inset-0 z-200 bg-[#fcfaf5] text-black w-full h-full overflow-y-auto"
+            data-lenis-prevent
           >
             <div className="absolute top-0 left-0 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-[radial-gradient(circle,rgba(0,0,0,0.03)_0%,transparent_70%)] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
