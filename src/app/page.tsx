@@ -13,6 +13,13 @@ import Gallery from '../components/Gallery';
 import Footer from '../components/Footer';
 import SectionNav from '../components/SectionNav';
 import Loader from '../components/Loader';
+import Faq from '@/components/Faq';
+import Blog from '@/components/Blog';
+import Media from '@/components/Media';
+import Learners from '@/components/Learners';
+import Recog from '@/components/Recog';
+import Leaders from '@/components/Leaders';
+import Expe from '@/components/Expe';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +56,13 @@ export default function Home() {
       <Programs />
       <Experience />
       <Gallery />
+      <Leaders />
+      <Recog />
+      <Learners />
+      <Expe/>
+      <Media/>
+      <Blog/>
+      <Faq/>
       <Footer />
     </div>
   );
