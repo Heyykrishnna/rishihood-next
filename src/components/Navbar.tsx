@@ -1,248 +1,244 @@
-import { useState, useEffect, useRef } from 'react';
-import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react';
-
-const NavItem = ({ label, hasDropdown, dropdownItems }: { label: string; hasDropdown?: boolean; dropdownItems?: string[] }) => (
-  <div className="relative group h-full flex items-center">
-    <div className="flex items-center gap-1 cursor-pointer hover:text-[#d00736] transition-colors text-sm py-6">
-      {label}
-      {hasDropdown && <ChevronDown className="w-4 h-4 ml-0.5" />}
-    </div>
-    {hasDropdown && dropdownItems && (
-      <div className="absolute top-[70px] left-0 opacity-0 invisible translate-y-3 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-in-out w-[320px] bg-[#fdf6e6] shadow-xl rounded-xl p-2 z-100 border border-[#f0e4cf]">
-        <ul className="flex flex-col gap-1">
-          {dropdownItems.map((item, index) => (
-            <li key={index}>
-              <a
-                href="#"
-                className="block px-4 py-2 text-sm font-normal cursor-pointer text-[#4b4b4b] hover:text-[#d00736] hover:bg-[#f6e1da] rounded-lg transition-colors whitespace-normal"
-              >
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </div>
-);
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUpRight, Linkedin, ChevronDown } from 'lucide-react';
+import { FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const navData = [
-  { label: "Programs", hasDropdown: true, items: ["Undergraduate Programs", "Postgraduate Programs", "Ph.D. Programs", "Executive Education"] },
-  { label: "Schools", hasDropdown: true, items: ["School of Entrepreneurship", "School of Design", "Sajjan Agarwal School of Technology", "Mahesh Navani School of Brain, Body & Behavior", "Rashtram School of Public Leadership", "Centre for Human Sciences"] },
-  { label: "Our Campus", hasDropdown: true, items: ["Infrastructure", "Student Life", "Hostel", "Sports", "Library"] },
-  { label: "About", hasDropdown: true, items: ["Our Vision", "Leadership", "Faculty", "Careers", "Contact Us"] },
+  { label: "Programs", hasDropdown: true, items: ["Undergraduate", "Postgraduate", "Ph.D.", "Executive"] },
+  { label: "Schools", hasDropdown: true, items: ["Entrepreneurship", "Design", "Technology", "Brain & Behavior", "Public Leadership", "Human Sciences"] },
+  { label: "Our Campus", hasDropdown: true, items: ["Infrastructure", "Student Life", "Hostel", "Sports"] },
+  { label: "About", hasDropdown: true, items: ["Our Vision", "Leadership", "Faculty", "Careers"] },
   { label: "Outcomes", hasDropdown: false },
   { label: "Admissions", hasDropdown: false },
   { label: "Venture Studio", hasDropdown: false },
 ];
 
 export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = (label: string) => {
     setOpenDropdown(openDropdown === label ? null : label);
   };
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      setMounted(false);
-      const t = setTimeout(() => setMounted(true), 50);
-      return () => clearTimeout(t);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
     } else {
-      setMounted(false);
-      setOpenDropdown(null);
+      document.body.style.overflow = '';
+      setTimeout(() => setOpenDropdown(null), 500);
     }
-  }, [isMobileMenuOpen]);
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) setIsMobileMenuOpen(false);
+    const handleScroll = () => {
+      if (window.scrollY > window.innerHeight - 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [isMobileMenuOpen]);
+  const menuVariants = {
+    closed: { y: "-100%", transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const } },
+    open: { y: "0%", transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const } }
+  };
 
-  const programsDropdown = ["Undergraduate Programs", "Postgraduate Programs", "Ph.D. Programs", "Executive Education"];
-  const schoolsDropdown = ["School of Entrepreneurship", "School of Design", "Sajjan Agarwal School of Technology", "Mahesh Navani School of Brain, Body & Behavior", "Rashtram School of Public Leadership", "Centre for Human Sciences"];
-  const campusDropdown = ["Infrastructure", "Student Life", "Hostel", "Sports", "Library"];
-  const aboutDropdown = ["Our Vision", "Leadership", "Faculty", "Careers", "Contact Us"];
+  const itemVariants = {
+    closed: { y: 40, opacity: 0 },
+    open: (i: number) => ({
+      y: 0, 
+      opacity: 1, 
+      transition: { duration: 0.5, delay: 0.2 + (i * 0.05), ease: [0.25, 1, 0.5, 1] as const }
+    })
+  };
+
+  const rightPanelVariants = {
+    closed: { opacity: 0, x: 20 },
+    open: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 0.5, ease: "easeOut" as const } }
+  };
 
   return (
-    <nav className="w-full bg-white h-[80px] px-4 lg:px-12 flex items-center justify-between sticky top-0 z-100 shadow-sm font-primary">
-      <div className="flex items-center">
-        <img src='https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319' className='h-10 w-auto' alt="Logo" />
-      </div>
-
-      <div className="hidden lg:flex items-center gap-6 xl:gap-8 font-light text-[#4b4b4b] h-full">
-        <NavItem label="Programs" hasDropdown dropdownItems={programsDropdown} />
-        <NavItem label="Schools" hasDropdown dropdownItems={schoolsDropdown} />
-        <NavItem label="Our Campus" hasDropdown dropdownItems={campusDropdown} />
-        <NavItem label="About" hasDropdown dropdownItems={aboutDropdown} />
-        <NavItem label="Placements" />
-        <NavItem label="Admissions" />
-        <NavItem label="Venture Studio" />
-      </div>
-
-      <div className="hidden lg:flex items-center">
-        <button className="flex items-center gap-2 px-6 py-2 border-2 border-[#d00736] text-[#d00736] font-semibold text-sm rounded-md hover:bg-[#d00736] group duration-500 cursor-pointer hover:text-white transition-colors">
-          <span className="w-1.5 h-1.5 bg-[#d00736] rounded-full animate-pulse group-hover:bg-white"></span>
-          Apply Now
-        </button>
-      </div>
-
-      {!isMobileMenuOpen && (
-        <button
-          className="lg:hidden p-2 text-gray-800 -mr-2 cursor-pointer"
-          onClick={() => setIsMobileMenuOpen(true)}
-          aria-label="Open menu"
+    <>
+      <div className={`fixed top-0 left-0 w-full z-100 px-4 md:px-12 py-4 md:py-6 flex justify-between items-center pointer-events-none transition-colors duration-500`}>
+        
+        {/* Left: Logo */}
+        <button 
+          onClick={scrollToTop} 
+          className="pointer-events-auto flex items-center cursor-pointer group"
         >
-          <Menu className="w-7 h-7" strokeWidth={1.5} />
+            <img 
+              src="https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319" 
+              alt="Rishihood University Logo" 
+              className={`h-8 md:h-10 lg:h-12 w-auto object-contain transition-all duration-500`}
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
         </button>
-      )}
 
-      <div
-        ref={menuRef}
-        className={`fixed inset-0 z-200 lg:hidden transition-all duration-500 ease-in-out ${
-          isMobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'
-        }`}
-      >
-        <div
-          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-400 ${
-            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
-          }`}
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-
-        <div
-          className={`absolute right-0 top-0 h-full w-[88vw] max-w-[400px] flex flex-col overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-          style={{ background: 'linear-gradient(160deg, #1a0a0a 0%, #2d0b0b 40%, #3b0d0d 100%)' }}
-        >
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div
-              className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full opacity-[0.06]"
-              style={{ background: 'radial-gradient(circle, #d00736 0%, transparent 70%)' }}
-            />
-            <div
-              className="absolute -top-16 -left-16 w-56 h-56 rounded-full opacity-[0.08]"
-              style={{ background: 'radial-gradient(circle, #ff6b35 0%, transparent 70%)' }}
-            />
-            <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="diag" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(45)">
-                  <line x1="0" y1="0" x2="0" y2="40" stroke="#fff" strokeWidth="0.8" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#diag)" />
-            </svg>
-            <div className="absolute top-[80px] left-0 right-0 h-px bg-linear-to-r from-transparent via-[#d00736]/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-32 opacity-10"
-              style={{ background: 'linear-gradient(to top, #d00736, transparent)' }}
-            />
-          </div>
-
-          <div className="relative flex items-center justify-between px-6 h-[80px] shrink-0">
-            <img
-              src='https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319'
-              className='h-8 w-auto brightness-0 invert opacity-90'
-              alt="Logo"
-            />
-            <button
-              className="p-2 text-white/70 hover:text-white cursor-pointer transition-colors rounded-full hover:bg-white/10"
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-            >
-              <X className="w-6 h-6" strokeWidth={1.5} />
-            </button>
-          </div>
-
-          <div
-            className={`relative px-6 pb-5 transition-all duration-500 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+        <div className="pointer-events-auto">
+           <button
+            onClick={() => setIsOpen(true)}
+            className={`px-5 py-2.5 rounded-full flex items-center gap-3 font-medium text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 cursor-pointer border ${
+              isScrolled 
+                ? 'bg-black/80 hover:bg-black text-white border-black/20' 
+                : 'bg-white/80 hover:bg-white/90 text-black border-white/20'
+            } backdrop-blur-lg`}
           >
-          </div>
-
-          <div className="relative flex-1 overflow-y-auto px-4 pb-6 overscroll-contain">
-            {navData.map((item, idx) => {
-              const isOpen = openDropdown === item.label;
-              const delay = 120 + idx * 60;
-              return (
-                <div
-                  key={item.label}
-                  className={`transition-all duration-500 ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
-                  style={{ transitionDelay: `${delay}ms` }}
-                >
-                  <button
-                    className={`w-full flex items-center justify-between px-4 py-4 rounded-xl text-left transition-all duration-200 group ${
-                      isOpen
-                        ? 'bg-[#d00736]/20 text-white rounded-b-none'
-                        : 'text-white/75 hover:text-white hover:bg-white/6'
-                    }`}
-                    onClick={() => item.hasDropdown ? toggleDropdown(item.label) : undefined}
-                  >
-                    <span className={`font-light tracking-wide transition-all duration-200 ${isOpen ? 'text-base font-medium text-white' : 'text-[15px]'}`}>
-                      {item.label}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      {item.hasDropdown ? (
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#d00736]' : 'text-white/40 group-hover:text-white/70'}`}
-                          strokeWidth={1.5}
-                        />
-                      ) : (
-                        <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-[#d00736] transition-colors duration-200" strokeWidth={1.5} />
-                      )}
-                    </span>
-                  </button>
-
-                  <div
-                    className={`overflow-hidden transition-all duration-350 ease-in-out ${isOpen ? 'max-h-[400px] opacity-100 mb-2' : 'max-h-0 opacity-0'}`}
-                  >
-                    {item.hasDropdown && item.items && (
-                      <div className="rounded-b-xl border border-t-0 border-white/[0.07] bg-white/4 overflow-hidden">
-                        {item.items.map((subItem, subIdx) => (
-                          <a
-                            key={subIdx}
-                            href="#"
-                            className="flex items-center justify-between px-5 py-3.5 text-[13px] text-white/55 hover:text-white hover:bg-white/6 transition-all duration-150 border-b border-white/5 last:border-b-0 font-light"
-                          >
-                            <span>{subItem}</span>
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div
-            className={`relative shrink-0 p-5 border-t border-white/8 transition-all duration-500 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-            style={{ transitionDelay: '580ms' }}
-          >
-            <button className="w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 cursor-pointer group relative overflow-hidden"
-              style={{ background: 'linear-gradient(135deg, #d00736 0%, #9b0527 100%)' }}
-            >
-              <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-              <span className="w-2 h-2 bg-white rounded-full animate-pulse relative z-10" />
-              <span className="text-white relative z-10">Apply Now</span>
-              <ArrowUpRight className="w-4 h-4 text-white/80 relative z-10 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" strokeWidth={2} />
-            </button>
-            <p className="text-center text-[10px] text-white/25 mt-3 tracking-wider">
-              TRANSFORMATIVE LEARNING · SONIPAT, HARYANA
-            </p>
-          </div>
+            Menu
+            <Menu className="w-5 h-5" strokeWidth={1.5} />
+          </button>
         </div>
       </div>
-    </nav>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
+            className="fixed inset-0 z-200 bg-[#fcfaf5] text-black w-full h-full overflow-y-auto"
+          >
+            <div className="absolute top-0 left-0 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-[radial-gradient(circle,rgba(0,0,0,0.03)_0%,transparent_70%)] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+
+            <div className="max-w-[1600px] mx-auto min-h-full flex flex-col relative px-4 md:px-12 py-6">
+              
+              <div className="flex justify-between items-start w-full relative z-20">
+                <div className="flex items-center gap-3 w-24 h-24">
+                </div>
+
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="bg-black hover:bg-black/90 text-white px-5 py-2.5 rounded-full flex items-center gap-2 font-medium text-[14px] transition-all duration-300 shadow-md hover:scale-105 cursor-pointer"
+                >
+                  Close
+                  <X className="w-4 h-4" strokeWidth={2} />
+                </button>
+              </div>
+
+              <div className="flex-1 flex flex-col lg:flex-row mt-16 md:mt-24 pb-20 lg:pb-0 relative z-10">
+                
+                <div className="w-full lg:w-[65%] flex flex-col gap-2 relative">
+                  {navData.map((item, idx) => {
+                    const number = String(idx + 1).padStart(2, '0');
+                    const isActive = openDropdown === item.label;
+                    
+                    return (
+                      <motion.div 
+                        key={item.label}
+                        custom={idx}
+                        variants={itemVariants}
+                        className="flex flex-col relative"
+                      >
+                       <button 
+                          onClick={() => item.hasDropdown && toggleDropdown(item.label)}
+                          className="flex items-center text-left py-2 hover:translate-x-4 transition-transform duration-400 ease-out group cursor-pointer"
+                        >
+                          <span className="text-gray-400 font-mono text-[11px] md:text-[13px] mr-6 md:mr-10 font-medium tracking-widest mt-2">{number}</span>
+                          <div className="flex items-center gap-4">
+                            <span className={`text-[36px] sm:text-[50px] md:text-[60px] lg:text-[72px] font-bold tracking-tight leading-none ${isActive ? 'text-[#d00736]' : 'text-[#111] group-hover:text-[#d00736] transition-colors duration-300'}`}>
+                              {item.label}
+                            </span>
+                            {item.hasDropdown && (
+                              <ChevronDown 
+                                className={`w-8 h-8 md:w-12 md:h-12 transition-transform duration-500 ease-[0.25,1,0.5,1] ${isActive ? 'rotate-180 text-[#d00736]' : 'text-gray-300 group-hover:text-[#d00736] group-hover:translate-y-1'}`}
+                                strokeWidth={2}
+                              />
+                            )}
+                          </div>
+                        </button>
+                        
+                        <AnimatePresence>
+                          {isActive && item.items && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                              className="overflow-hidden ml-16 md:ml-24"
+                            >
+                              <div className="flex flex-col gap-3 py-4 md:py-6">
+                                {item.items.map((subItem, sIdx) => (
+                                  <a 
+                                    key={sIdx} 
+                                    href="#" 
+                                    className="text-[16px] md:text-[20px] lg:text-[24px] text-gray-500 font-normal hover:text-black transition-colors w-max"
+                                  >
+                                    {subItem}
+                                  </a>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                <motion.div 
+                  initial={{ opacity: 0, scaleY: 0 }} 
+                  animate={{ opacity: 1, scaleY: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                  className="hidden lg:block w-px bg-gray-200 absolute right-[35%] top-0 bottom-0 origin-top"
+                />
+
+                <motion.div 
+                  variants={rightPanelVariants}
+                  className="w-full lg:w-[35%] lg:pl-16 xl:pl-24 mt-20 lg:mt-0 flex flex-col justify-between"
+                >
+                  <div className="flex flex-col gap-10">
+                    <div>
+                      <h4 className="text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-6 font-mono">Connect</h4>
+                      <div className="flex flex-wrap gap-3">
+                        <a href="https://www.linkedin.com/school/rishihood/" className="border border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm text-gray-600 px-4 py-2.5 rounded-full flex items-center gap-2 text-[13px] font-medium transition-all duration-200 hover:-translate-y-0.5">
+                          <Linkedin className="w-4 h-4" /> Rishihood
+                        </a>
+                        <a href="https://x.com/RishihoodUni" className="border border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm text-gray-600 px-4 py-2.5 rounded-full flex items-center gap-2 text-[13px] font-medium transition-all duration-200 hover:-translate-y-0.5">
+                          <FaXTwitter className="w-4 h-4" /> Rishihood Uni
+                        </a>
+                        <a href="https://api.whatsapp.com/send?phone=918929314451" className="border border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm text-gray-600 px-4 py-2.5 rounded-full flex items-center gap-2 text-[13px] font-medium transition-all duration-200 hover:-translate-y-0.5">
+                          <FaWhatsapp className="w-4 h-4" /> WhatsApp
+                        </a>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-4 font-mono">Get in Touch</h4>
+                      <a href="mailto:namaste@rishihood.edu.in" className="text-[18px] md:text-[22px] font-medium text-black hover:text-[#d00736] transition-colors break-all">
+                        namaste@rishihood.edu.in
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="mt-16 lg:mt-auto relative group self-start">
+                    <div className="absolute -inset-4 bg-[radial-gradient(circle,rgba(0,0,0,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-full" />
+                    <a href="https://apply.rishihood.edu.in/" target="_blank" rel="noopener noreferrer">
+                      <button className="bg-black text-white px-8 py-4 rounded-full cursor-pointer flex items-center gap-3 font-medium text-[15px] hover:bg-[#111] transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.25)]">
+                        Apply Now
+                        <ArrowUpRight className="w-4 h-4 opacity-80" strokeWidth={2} />
+                      </button>
+                    </a>
+                  </div>
+
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -62,7 +62,7 @@ export default function Hero() {
   }, [currentSlide]);
 
   return (
-    <div id="hero" className="relative w-full h-[calc(100vh-80px)] overflow-hidden bg-black font-primary flex flex-col">
+    <div id="hero" className="relative w-full h-screen overflow-hidden bg-black font-primary flex flex-col">
       <AnimatePresence initial={false}>
         <motion.div
           key={currentSlide}
@@ -92,7 +92,7 @@ export default function Hero() {
           }
         }}
       >
-        <div className="max-w-5xl pt-10 pointer-events-none w-full">
+        <div className="max-w-5xl pt-24 md:pt-32 pointer-events-none w-full">
           <BlurText
             key={`blur-${currentSlide}`}
             text={slides[currentSlide].italicHeading}

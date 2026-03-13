@@ -50,7 +50,7 @@ export default function Home() {
     <div className="min-h-screen font-primary bg-[#fcfaf5]">
       <Loader show={isLoading} />
       <Navbar />
-      <SectionNav />
+      {/* <SectionNav /> */}
       <Hero />
       <Stats />
       <Programs />
