@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,7 +16,7 @@ const experiences = [
     description:
       'Soul Trek is a transformative learning experience for first-year undergraduate learners, where our learners engage in community service and learn by giving back to society. Walk into the unknown and return knowing yourself.',
     image: 'https://framerusercontent.com/images/X6ScxKebktNS6RthJFdrjTVfsQ.jpg?width=1920&height=1080',
-    link: 'https://shadcnstudio.com/',
+    link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
   {
@@ -24,7 +26,7 @@ const experiences = [
     description:
       'Every year at Rishihood University, our learners and faculty take on the 100 Km walk. Over two days, we walk 50 km forward and 50 km back to test our endurance and find our purpose.',
     image: 'https://framerusercontent.com/images/BXvjQ9KIzJjJaaxZ8PfKzj6I8.jpg?width=1920&height=1080',
-    link: 'https://shadcnstudio.com/',
+    link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
   {
@@ -34,17 +36,17 @@ const experiences = [
     description:
       "Turn your ideas into real startups through rapid prototyping, mentorship and seed-stage support. Learners get to ideate, test, launch and grow their ventures.",
     image: 'https://framerusercontent.com/images/3U49wtgtu8cMYzvIgGU9eU5E0.jpg?scale-down-to=4096&width=5862&height=3908',
-    link: 'https://shadcnstudio.com/',
+    link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
   {
     id: '04',
-    title: 'Where Culture Comes Alive',
+    title: 'Culture Comes Alive',
     tag: 'Fests & Culture',
     description:
       'From soulful aartis to electrifying concerts, our campus fests celebrate culture, creativity, and community, bringing learners together in moments that become memories.',
     image: 'https://framerusercontent.com/images/s6ppUHfqV3g4AlYT9BDr0leBo.jpg?scale-down-to=4096&width=5052&height=3368',
-    link: 'https://shadcnstudio.com/',
+    link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
   {
@@ -54,23 +56,62 @@ const experiences = [
     description:
       'Beyond borders lies your greatest classroom. Learners travel to world-class institutions and return with a worldview no textbook can teach.',
     image: 'https://cdn.prod.website-files.com/62e8d2ea218fb7676b6892a6/6834e68d20cdc8deca1c497c_img%202.avif',
-    link: 'https://shadcnstudio.com/',
+    link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
   {
     id: '06',
     title: 'A Decade of Purpose',
-    tag: 'Decade of Purpose',
+    tag: 'Milestone',
     description:
       'Our 10-year milestone was marked by inspiring conversations and presence of eminent leaders, reflecting a decade of purpose-driven education and national impact.',
     image: 'https://framerusercontent.com/images/ChlKClBeKwRvYSaGOHeK5PBYMFs.png?width=2176&height=1500',
-    link: 'https://shadcnstudio.com/',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '07',
+    title: 'From Ideas to Impact',
+    tag: 'Real World Projects',
+    description:
+      'From building apps to crafting design prototypes and pitching business ideas our foundation program fosters cross-disciplinary collaboration from day one.',
+    image: 'https://framerusercontent.com/images/xMRNDlEGu84kU4J44NqwaoAsvs.jpg?scale-down-to=4096&width=5184&height=3456',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '08',
+    title: 'Immersive Media Lab',
+    tag: 'AI & Immersive Media',
+    description:
+      'Step into the future of storytelling. Our Immersive Media Lab combines AI, VR, and AR to create experiences that blur the line between the digital and the real.',
+    image: 'https://framerusercontent.com/images/ApOp5zC7z19QtRGYSSTnXVXM4.png?scale-down-to=1024&width=1248&height=749',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '09',
+    title: 'Sports Facilities',
+    tag: 'Sports',
+    description:
+      'From state-of-the-art gyms to sprawling sports fields, we provide the infrastructure for you to push your limits and play your best.',
+    image: 'https://framerusercontent.com/images/iOhsWz43ozNecZ0xak1FGgF4dXw.jpg?width=4096&height=2731',
+    link: 'https://rishihood.edu.in/',
+    color: '#d00736',
+  },
+  {
+    id: '10',
+    title: 'A Campus That Inspires',
+    tag: 'Campus Life',
+    description:
+      'Explore of our 25-acre, living-learning campus with immersive labs, green spaces, and places to grow in every direction.',
+    image: 'https://framerusercontent.com/images/XFjzi1N8IY9NG8fcSIM2Ev9sc.webp?width=680&height=377',
+    link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
 ];
 
 type Experience = typeof experiences[0];
-
 
 function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -80,9 +121,9 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
   useEffect(() => {
     const tl = gsap.timeline();
     tl.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-      .fromTo(cardRef.current, { opacity: 0, scale: 0.86, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.5)' }, '-=0.15')
+      .fromTo(cardRef.current, { opacity: 0, scale: 0.88, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.5)' }, '-=0.15')
       .fromTo(
-        contentRef.current ? contentRef.current.children : [],
+        contentRef.current ? Array.from(contentRef.current.children) : [],
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, stagger: 0.07, duration: 0.4, ease: 'power2.out' },
         '-=0.2'
@@ -91,7 +132,7 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
 
   const handleClose = () => {
     const tl = gsap.timeline({ onComplete: onClose });
-    tl.to(cardRef.current, { opacity: 0, scale: 0.9, y: 20, duration: 0.25, ease: 'power2.in' })
+    tl.to(cardRef.current, { opacity: 0, scale: 0.92, y: 20, duration: 0.25, ease: 'power2.in' })
       .to(overlayRef.current, { opacity: 0, duration: 0.2, ease: 'power2.in' }, '-=0.1');
   };
 
@@ -99,7 +140,7 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
     <div
       ref={overlayRef}
       className="fixed inset-0 z-500 flex items-center justify-center p-4 md:p-8"
-      style={{ background: 'rgba(10,5,5,0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
+      style={{ background: 'rgba(10,5,5,0.7)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
       onClick={(e) => { if (e.target === overlayRef.current) handleClose(); }}
     >
       <div
@@ -126,8 +167,10 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
           >
             {exp.tag}
           </span>
+          <span className="absolute bottom-4 right-5 font-primary text-6xl font-black leading-none opacity-[0.15] text-white select-none pointer-events-none">
+            {exp.id}
+          </span>
         </div>
-
 
         <div className="w-full md:w-[52%] p-8 md:p-12 lg:p-14 flex flex-col justify-center bg-[#fcf7ef] overflow-y-auto">
           <div ref={contentRef} className="flex flex-col">
@@ -144,6 +187,7 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
             <a
               href={exp.link}
               target="_blank"
+              rel="noopener noreferrer"
               className="group flex items-center gap-2 self-start font-semibold text-sm tracking-wide px-7 py-3.5 rounded-full text-white transition-all duration-300 hover:opacity-90 hover:scale-[1.02]"
               style={{ background: exp.color, boxShadow: `0 6px 24px ${exp.color}45` }}
             >
@@ -157,83 +201,61 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
   );
 }
 
-
-function ExpCard({
-  exp,
-  cardRef,
-  onClick,
-}: {
-  exp: Experience;
-  cardRef: (el: HTMLButtonElement | null) => void;
-  onClick: () => void;
-}) {
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    if (!imgRef.current) return;
-    gsap.fromTo(
-      imgRef.current,
-      { y: '-8%' },
-      {
-        y: '8%',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: imgRef.current.closest('.exp-card-wrap') as Element,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
-  }, []);
-
+function GalleryCard({ exp, onClick }: { exp: Experience; onClick: () => void }) {
   return (
     <button
-      ref={cardRef}
       onClick={onClick}
-      className="exp-card-wrap group relative text-left bg-white rounded-3xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.07)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.14)] transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+      className="group relative shrink-0 w-[85vw] md:w-[45vw] lg:w-[38vw] xl:w-[32vw] h-full rounded-3xl overflow-hidden cursor-pointer text-left focus:outline-none"
+      style={{ aspectRatio: '4/5' }}
     >
-      <div className="relative w-full h-52 overflow-hidden">
-        <img
-          ref={imgRef}
-          src={exp.image}
-          alt={exp.title}
-          className="w-full h-[116%] object-cover transition-transform duration-700 group-hover:scale-105"
-          style={{ transformOrigin: 'center center' }}
-        />
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{ background: `linear-gradient(135deg, ${exp.color}35 0%, transparent 65%)` }}
-        />
-        <span
-          className="absolute top-3 left-3 text-[9px] font-bold uppercase tracking-[0.18em] text-white rounded-full px-2.5 py-1 shadow-sm"
-          style={{ background: exp.color }}
-        >
-          {exp.tag}
-        </span>
-        <span className="absolute bottom-2 right-3 font-primary text-5xl font-black leading-none opacity-[0.13] text-white select-none pointer-events-none">
-          {exp.id}
-        </span>
-      </div>
+      <img
+        src={exp.image}
+        alt={exp.title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+      />
 
-      <div className="p-6 pb-7">
-        <h3
-          className="text-[17px] font-semibold mb-2 tracking-tight leading-snug"
-          style={{ color: exp.color }}
-        >
+      <div
+        className="absolute inset-0 transition-opacity duration-500"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.78) 100%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: `linear-gradient(135deg, ${exp.color}30 0%, transparent 60%)` }}
+      />
+
+      <span
+        className="absolute top-5 left-5 text-[9px] font-black uppercase tracking-[0.22em] text-white rounded-full px-3 py-1.5 shadow-sm transition-transform duration-300 group-hover:scale-105"
+        style={{ background: exp.color }}
+      >
+        {exp.tag}
+      </span>
+
+      <span className="absolute top-5 right-5 font-primary text-[4rem] font-black leading-none opacity-[0.11] text-white select-none pointer-events-none transition-opacity duration-500 group-hover:opacity-[0.18]">
+        {exp.id}
+      </span>
+
+      <div className="absolute inset-x-0 bottom-0 p-6 md:p-7 flex flex-col">
+        <div
+          className="w-8 h-[2.5px] rounded-full mb-4 transition-all duration-500 group-hover:w-14"
+          style={{ background: exp.color }}
+        />
+        <h3 className="text-white font-bold text-xl md:text-2xl leading-tight tracking-tight mb-2 transition-transform duration-500 group-hover:-translate-y-0.5">
           {exp.title}
         </h3>
-        <p className="text-[#777] text-[13px] leading-relaxed font-light line-clamp-3">
+        <p className="text-white/70 text-[13px] leading-relaxed font-light line-clamp-2 opacity-0 translate-y-3 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
           {exp.description}
         </p>
         <div
-          className="mt-5 flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase"
+          className="mt-4 flex items-center gap-1.5 text-[10px] font-black tracking-[0.2em] uppercase opacity-0 translate-y-3 transition-all duration-500 delay-75 group-hover:opacity-100 group-hover:translate-y-0"
           style={{ color: exp.color }}
         >
-          <span>Discover</span>
-          <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <span>Explore</span>
+          <ArrowUpRight className="w-3.5 h-3.5" />
         </div>
       </div>
+
       <div
         className="absolute bottom-0 left-0 h-[3px] w-0 group-hover:w-full transition-all duration-500 ease-out rounded-b-3xl"
         style={{ background: exp.color }}
@@ -242,42 +264,73 @@ function ExpCard({
   );
 }
 
-
 export default function Experience() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardsWrapperRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLButtonElement | null)[]>([]);
-  const [selectedExp, setSelectedExp] = useState<Experience | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const pinWrapRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const tickerRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const [selectedExp, setSelectedExp] = useState<Experience | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.exp-pill',
         { opacity: 0, scale: 0.8, y: 10 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'back.out(1.6)', scrollTrigger: { trigger: '.exp-header', start: 'top 88%' } }
+        {
+          opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'back.out(1.6)',
+          scrollTrigger: { trigger: '.exp-header', start: 'top 85%' },
+        }
       );
+
       gsap.fromTo(
         '.exp-ticker',
         { opacity: 0 },
         { opacity: 1, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.exp-ticker', start: 'top 90%' } }
       );
-      const cards = cardsRef.current.filter(Boolean) as HTMLButtonElement[];
-      cards.forEach((card, i) => {
-        const fromX = i % 2 === 0 ? -50 : 50;
-        gsap.fromTo(
-          card,
-          { opacity: 0, x: fromX, y: 40, scale: 0.93 },
-          { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.85, ease: 'power3.out', scrollTrigger: { trigger: card, start: 'top 88%' } }
-        );
-      });
+
       if (tickerRef.current) {
         const inner = tickerRef.current.querySelector('.ticker-inner');
         if (inner) gsap.to(inner, { xPercent: -50, ease: 'none', duration: 22, repeat: -1 });
       }
+
       gsap.to('.blob-1', { y: 30, x: -20, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
       gsap.to('.blob-2', { y: -25, x: 15, duration: 8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-    }, containerRef);
+
+      if (!trackRef.current || !pinWrapRef.current) return;
+
+      const track = trackRef.current;
+      const pinWrap = pinWrapRef.current;
+
+      const getScrollAmount = () => {
+        const trackW = track.scrollWidth;
+        const viewW = pinWrap.offsetWidth;
+        return -(trackW - viewW);
+      };
+
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: () => `+=${Math.abs(getScrollAmount()) + window.innerHeight * 0.5}`,
+        pin: pinWrapRef.current,
+        anticipatePin: 1,
+        scrub: 1.2,
+        onUpdate: (self) => {
+          if (progressBarRef.current) {
+            progressBarRef.current.style.width = `${self.progress * 100}%`;
+          }
+          gsap.to(track, {
+            x: getScrollAmount() * self.progress,
+            ease: 'none',
+            overwrite: 'auto',
+          });
+        },
+        invalidateOnRefresh: true,
+      });
+
+      return () => st.kill();
+    }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
@@ -292,8 +345,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      ref={containerRef}
-      className="w-full bg-[#fcf7ef] py-24 md:py-32 font-primary relative overflow-hidden"
+      ref={sectionRef}
+      className="w-full bg-[#fcf7ef] font-primary relative overflow-hidden"
     >
       <div
         className="blob-1 absolute pointer-events-none"
@@ -304,66 +357,61 @@ export default function Experience() {
         style={{ width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(179,92,0,0.06) 0%, transparent 70%)', bottom: -120, left: -120 }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 relative z-10">
-        <div className="text-center mx-auto mb-16 max-w-3xl">
-          <BlurText
-            text="Experience Rishihood"
-            delay={50}
-            animateBy="letters"
-            direction="bottom"
-            className="text-xl md:text-[32px] font-semibold justify-center text-[#d00736] mb-4"
-          />
-          <p className="text-[#555] text-sm md:text-sm font-medium">
-            A campus that feels like home. A journey that feels like an adventure.
-          </p>
-        </div>
+      <div ref={pinWrapRef} className="w-full min-h-screen flex flex-col justify-center py-20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 w-full relative z-10">
+          <div className="exp-header text-center mx-auto mb-10 max-w-3xl">
+            <BlurText
+              text="Experience Rishihood"
+              delay={50}
+              animateBy="letters"
+              direction="bottom"
+              className="text-xl md:text-[32px] font-semibold justify-center text-[#d00736] mb-4"
+            />
+            <p className="text-[#666] text-sm font-medium">
+              A campus that feels like home. A journey that feels like an adventure.
+            </p>
+          </div>
 
-        <div ref={tickerRef} className="exp-ticker w-full overflow-hidden mb-14 py-4 border-y border-[#e6dcc8]">
-          <div className="ticker-inner flex whitespace-nowrap">
-            {tickerItems.map((exp, i) => (
-              <span key={i} className="inline-flex items-center gap-3 mr-10 text-[11px] font-bold uppercase tracking-[0.22em] shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full inline-block shrink-0" style={{ background: exp.color }} />
-                <span style={{ color: exp.color }}>{exp.title}</span>
-                <span className="text-[#ddd] mx-1">·</span>
-              </span>
-            ))}
+          <div ref={tickerRef} className="exp-ticker w-full overflow-hidden mb-10 py-3 border-y border-[#e6dcc8]">
+            <div className="ticker-inner flex whitespace-nowrap">
+              {tickerItems.map((exp, i) => (
+                <span key={i} className="inline-flex items-center gap-3 mr-10 text-[11px] font-bold uppercase tracking-[0.22em] shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full inline-block shrink-0" style={{ background: exp.color }} />
+                  <span style={{ color: exp.color }}>{exp.title}</span>
+                  <span className="text-[#ddd] mx-1">·</span>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div
-          ref={cardsWrapperRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
-        >
-          {experiences.slice(0, 3).map((exp, index) => (
-            <ExpCard
-              key={exp.id}
-              exp={exp}
-              cardRef={(el) => { cardsRef.current[index] = el; }}
-              onClick={() => setSelectedExp(exp)}
-            />
-          ))}
+        <div className="w-full overflow-hidden relative">
+          <div
+            ref={trackRef}
+            className="flex gap-5 px-4 md:px-8 lg:px-12 will-change-transform"
+            style={{ height: 'clamp(420px, 62vh, 580px)' }}
+          >
+            {experiences.map((exp) => (
+              <GalleryCard
+                key={exp.id}
+                exp={exp}
+                onClick={() => setSelectedExp(exp)}
+              />
+            ))}
+            <div className="shrink-0 w-4 md:w-8" />
+          </div>
         </div>
 
-        <div className="mt-5 md:mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {experiences.slice(3, 6).map((exp, index) => (
-            <ExpCard
-              key={exp.id}
-              exp={exp}
-              cardRef={(el) => { cardsRef.current[3 + index] = el; }}
-              onClick={() => setSelectedExp(exp)}
-            />
-          ))}
-        </div>
-
-        <div className="mt-5 md:mt-6 grid grid-cols-1 gap-5 md:gap-6 max-w-sm mx-auto">
-          {experiences.slice(6).map((exp, index) => (
-            <ExpCard
-              key={exp.id}
-              exp={exp}
-              cardRef={(el) => { cardsRef.current[6 + index] = el; }}
-              onClick={() => setSelectedExp(exp)}
-            />
-          ))}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 w-full mt-8">
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-[2px] bg-[#e8dfd0] rounded-full overflow-hidden">
+              <div
+                ref={progressBarRef}
+                className="h-full rounded-full transition-none"
+                style={{ background: '#d00736', width: '0%' }}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

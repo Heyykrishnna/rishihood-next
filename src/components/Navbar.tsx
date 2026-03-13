@@ -17,6 +17,15 @@ const navData = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const toggleDropdown = (label: string) => {
     setOpenDropdown(openDropdown === label ? null : label);
@@ -37,8 +46,6 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
-  const [isScrolled, setIsScrolled] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > window.innerHeight - 50) {
@@ -51,46 +58,59 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const showDarkLogo = isScrolled || isOpen;
+
   const menuVariants = {
-    closed: { y: "-100%", transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const } },
-    open: { y: "0%", transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const } }
+    closed: { 
+      x: isMobile ? "0%" : "100%",
+      y: isMobile ? "-100%" : "0%",
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const } 
+    },
+    open: { 
+      x: "0%", 
+      y: "0%",
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const } 
+    }
   };
 
   const itemVariants = {
-    closed: { y: 40, opacity: 0 },
+    closed: { y: 60, opacity: 0, scale: 0.95 },
     open: (i: number) => ({
       y: 0, 
       opacity: 1, 
-      transition: { duration: 0.5, delay: 0.2 + (i * 0.05), ease: [0.25, 1, 0.5, 1] as const }
+      scale: 1,
+      transition: { duration: 0.6, delay: 0.3 + (i * 0.08), ease: [0.25, 1, 0.5, 1] as const }
     })
   };
 
   const rightPanelVariants = {
-    closed: { opacity: 0, x: 20 },
-    open: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 0.5, ease: "easeOut" as const } }
+    closed: { opacity: 0, x: 40 },
+    open: { opacity: 1, x: 0, transition: { duration: 0.7, delay: 0.6, ease: "easeOut" as const } }
   };
 
   return (
     <>
-      <div className={`fixed top-0 left-0 w-full z-100 px-4 md:px-12 py-4 md:py-6 flex justify-between items-center pointer-events-none transition-colors duration-500`}>
+      <div className={`fixed top-0 left-0 w-full z-300 px-4 md:px-12 py-4 md:py-6 flex justify-between items-center pointer-events-none transition-colors duration-500`}>
         <button 
           onClick={scrollToTop} 
-          className="pointer-events-auto flex items-center cursor-pointer group"
+          className={`pointer-events-auto flex items-center cursor-pointer group transition-opacity duration-300 ${
+            isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
         >
-          <div className="relative h-8 md:h-10 lg:h-12">
+          <div className="relative h-8 md:h-10 lg:h-12 w-32 md:w-48 lg:w-56">
             <img
               src="https://framerusercontent.com/images/NKvCUEL0ORnQgJto11PdvOykNk.png?scale-down-to=512&width=704&height=280"
               alt="Rishihood University Logo"
-              className={`h-full w-auto object-contain brightness-0 invert transition-opacity duration-700 ease-in-out ${
-                isScrolled ? 'opacity-0' : 'opacity-100'
+              className={`absolute inset-0 h-full w-auto object-contain brightness-0 invert transition-opacity duration-700 ease-in-out ${
+                showDarkLogo ? 'opacity-0' : 'opacity-100'
               }`}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <img
               src="https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319"
               alt="Rishihood University Logo"
-              className={`h-full w-auto object-contain absolute top-0 left-0 transition-opacity duration-700 ease-in-out ${
-                isScrolled ? 'opacity-100' : 'opacity-0'
+              className={`absolute inset-0 h-full w-auto object-contain transition-opacity duration-700 ease-in-out ${
+                showDarkLogo ? 'opacity-100' : 'opacity-0'
               }`}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
@@ -99,15 +119,26 @@ export default function Navbar() {
 
         <div className="pointer-events-auto">
            <button
-            onClick={() => setIsOpen(true)}
-            className={`px-5 py-2.5 rounded-full flex items-center gap-3 font-medium text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 cursor-pointer border ${
-              isScrolled 
-                ? 'bg-black/80 hover:bg-black text-white border-black/20' 
-                : 'bg-white/80 hover:bg-white/90 text-black border-white/20'
-            } backdrop-blur-lg`}
+            onClick={() => setIsOpen(!isOpen)}
+            className={`px-5 py-2.5 rounded-full flex items-center justify-center gap-3 font-medium text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 cursor-pointer border backdrop-blur-lg min-w-[110px] ${
+              isOpen 
+                ? 'bg-black text-white border-black/20 hover:bg-black/90' 
+                : isScrolled 
+                  ? 'bg-black/80 hover:bg-black text-white border-black/20' 
+                  : 'bg-white/80 hover:bg-white/90 text-black border-white/20'
+            }`}
           >
-            Menu
-            <Menu className="w-5 h-5" strokeWidth={1.5} />
+            {isOpen ? (
+              <div className="flex items-center gap-2">
+                Close
+                <X className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                Menu
+                <Menu className="w-5 h-5" strokeWidth={1.5} />
+              </div>
+            )}
           </button>
         </div>
       </div>
@@ -126,19 +157,6 @@ export default function Navbar() {
 
             <div className="max-w-[1600px] mx-auto min-h-full flex flex-col relative px-4 md:px-12 py-6">
               
-              <div className="flex justify-between items-start w-full relative z-20">
-                <div className="flex items-center gap-3 w-24 h-24">
-                </div>
-
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="bg-black hover:bg-black/90 text-white px-5 py-2.5 rounded-full flex items-center gap-2 font-medium text-[14px] transition-all duration-300 shadow-md hover:scale-105 cursor-pointer"
-                >
-                  Close
-                  <X className="w-4 h-4" strokeWidth={2} />
-                </button>
-              </div>
-
               <div className="flex-1 flex flex-col lg:flex-row mt-16 md:mt-24 pb-20 lg:pb-0 relative z-10">
                 
                 <div className="w-full lg:w-[65%] flex flex-col gap-2 relative">
