@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import gsap from 'gsap';
 import BlurText from './BlurText';
 
@@ -32,9 +32,25 @@ const row2 = [...row2Images, ...row2Images, ...row2Images];
 const labels = ['Campus Life', 'Fest Vibes', 'Learning', 'Community', 'Innovation', 'Culture', 'Events', 'Growth'];
 
 function GalleryCard({ src, index }: { src: string; index: number }) {
+  const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: '600px' }
+    );
+    observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleMouseEnter = useCallback(() => {
     if (!cardRef.current || !overlayRef.current || !imgRef.current) return;
@@ -74,16 +90,18 @@ function GalleryCard({ src, index }: { src: string; index: number }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
-      className="shrink-0 w-[clamp(200px,21vw,360px)] h-[clamp(130px,13vw,230px)] rounded-[14px] overflow-hidden relative shadow-[0_4px_20px_rgba(0,0,0,0.08)] transform-3d"
+      className="shrink-0 w-[clamp(200px,21vw,360px)] h-[clamp(130px,13vw,230px)] rounded-[14px] overflow-hidden relative shadow-[0_4px_20px_rgba(0,0,0,0.08)] transform-3d bg-[#f5ebe0]"
     >
-      <img
-        ref={imgRef}
-        src={src}
-        alt={labels[index] ?? ''}
-        loading="lazy"
-        draggable={false}
-        className="w-full h-full object-cover block select-none pointer-events-none origin-center"
-      />
+      {isVisible ? (
+        <img
+          ref={imgRef}
+          src={src}
+          alt={labels[index] ?? ''}
+          loading="lazy"
+          draggable={false}
+          className="w-full h-full object-cover block select-none pointer-events-none origin-center transition-opacity duration-500"
+        />
+      ) : null}
 
       <div
         ref={overlayRef}
