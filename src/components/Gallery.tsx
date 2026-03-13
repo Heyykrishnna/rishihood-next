@@ -223,7 +223,7 @@ export default function Gallery() {
         </span>
 
         <BlurText
-          text="Experience Rishihood"
+          text="Where Stories Come Alive"
           delay={50}
           animateBy="letters"
           direction="bottom"
