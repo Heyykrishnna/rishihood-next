@@ -76,7 +76,7 @@ export default function Navbar() {
   const aboutDropdown = ["Our Vision", "Leadership", "Faculty", "Careers", "Contact Us"];
 
   return (
-    <nav className="w-full bg-white h-[80px] px-4 lg:px-12 flex items-center justify-between sticky top-0 z-100 shadow-sm font-primary">
+    <nav className="w-full bg-white h-[80px] px-4 lg:px-12 flex items-center justify-between sticky top-0 z-1000 shadow-sm font-primary">
       <div className="flex items-center">
         <img src='https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319' className='h-10 w-auto' alt="Logo" />
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -89,6 +89,15 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
     setCurrentIndex(
       (index) => (index - 1 + testimonials.length) % testimonials.length
     );
+
+  // Auto-scroll effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((index) => (index + 1) % testimonials.length);
+    }, 5000); // Change testimonial every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   const currentTestimonial = testimonials[currentIndex];
 
