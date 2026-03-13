@@ -1,4 +1,5 @@
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
+import { CardCarousel } from "./ui/card-carousel"
 export default function Experience(){
     const experience = [
         {
@@ -26,7 +27,14 @@ export default function Experience(){
                     <p className="text-[#3A3A3A] text-base sm:text-lg md:text-xl lg:text-[18px] xl:text-[26px] font-extralight leading-relaxed">Discover what top academics, entrepreneurs, and your fellow students think about Rishihood University and why they believe in our culture and innovation.</p>
                 </div>
 
-                 <AnimatedTestimonials testimonials={experience} />;
+                
+                <CardCarousel
+                
+                    images={experience}
+                    autoplayDelay={2000}
+                    showPagination={true}
+                    showNavigation={true}
+                />
             </div>
            
 
