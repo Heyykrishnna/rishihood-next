@@ -99,13 +99,13 @@ function Modal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[500] flex items-center justify-center p-4 md:p-8"
+      className="fixed inset-0 z-500 flex items-center justify-center p-4 md:p-8"
       style={{ background: 'rgba(10,5,5,0.7)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
       onClick={(e) => { if (e.target === overlayRef.current) handleClose(); }}
     >
       <div
         ref={cardRef}
-        className="relative w-full max-w-4xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row"
+        className="relative w-full max-w-4xl bg-white rounded-4xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
         style={{ maxHeight: '88vh' }}
       >
         <button
@@ -165,7 +165,7 @@ function GalleryCard({ exp, onClick }: { exp: Experience; onClick: () => void })
   return (
     <button
       onClick={onClick}
-      className="group relative flex-shrink-0 w-[80vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw] h-full rounded-3xl overflow-hidden cursor-pointer text-left focus:outline-none"
+      className="group relative shrink-0 w-[80vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw] h-full rounded-3xl overflow-hidden cursor-pointer text-left focus:outline-none"
       style={{ aspectRatio: '3/4' }}
     >
       <img
@@ -358,13 +358,12 @@ export default function Experience() {
                 onClick={() => setSelectedExp(exp)}
               />
             ))}
-            <div className="flex-shrink-0 w-4 md:w-8" />
+            <div className="shrink-0 w-4 md:w-8" />
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 w-full mt-8">
           <div className="flex items-center gap-4">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#aaa]">Scroll to explore</span>
             <div className="flex-1 h-[2px] bg-[#e8dfd0] rounded-full overflow-hidden">
               <div
                 ref={progressBarRef}
@@ -372,7 +371,6 @@ export default function Experience() {
                 style={{ background: '#d00736', width: '0%' }}
               />
             </div>
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#aaa]">{experiences.length} Experiences</span>
           </div>
         </div>
       </div>
