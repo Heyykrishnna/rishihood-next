@@ -34,7 +34,7 @@ export const TestimonialsColumn = (props: {
               {props.testimonials.map(({ quote, img, name, course }: Testimonial, i: number) => (
                 <div className="p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border shadow-lg shadow-primary/10 w-full h-auto sm:h-80 md:h-96 lg:h-100 flex flex-col sm:flex-row gap-4 sm:gap-6" key={i}>
                   <div className="w-full sm:w-2/5 md:w-1/3 shrink-0">
-                    <img src={img} alt={name} className="w-full h-40 sm:h-full rounded-xl sm:rounded-2xl object-cover" />
+                    <img src={img} alt={name} className="w-full h-80 sm:h-full rounded-xl sm:rounded-2xl object-cover" />
                   </div>
                  
                   <div className="flex-1 flex flex-col w-full">
