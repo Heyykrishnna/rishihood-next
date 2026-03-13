@@ -1,12 +1,13 @@
 import ProductsCarousel from "@/components/ui/executive-impact-carousel"
 import styled from 'styled-components';
 import { Carousel3DSelect} from "@/components/ui/carousel3dselect";
-
+import { TestimonialCarousel } from "@/components/ui/profile-card-testimonial-carousel"
+import { TestimonialsColumn } from "./blocks/testimonials-columns-1";
 
 export default function Learners(){
 
 
-    const learners = [
+    const testimonials = [
         {
             img:"https://framerusercontent.com/images/YOsD76jbx0ZQIaGxjrS83lLhRsI.png?width=2512&height=1436",
             name:"Kokila Hada",
@@ -84,28 +85,31 @@ export default function Learners(){
 
     ]
 
-  
+    const firstColumn = testimonials.slice(0, 4);
+    const secondColumn = testimonials.slice(4, 8);
+    const thirdColumn = testimonials.slice(8, 12);
    
     return(
         <div
         className="content-center items-center box-border flex flex-col text-[12px] w-full py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8 justify-center flex-nowrap gap-2 sm:gap-2.5 overflow-x-hidden" id="learners">
+
+            
             <p className="box-border text-[#D00636] text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-semibold text-center tracking-wider w-fit px-4">Meet Our Learners</p>
             <p className="text-sm sm:text-base md:text-lg lg:text-[16px] text-[#3A3A3A] wrap-break-word text-center leading-6 font-extralight mb-8 sm:mb-12 md:mb-16 lg:mb-30 px-4 max-w-full md:max-w-3xl">
                 Our learners are building startups, coding the future, designing <br className="hidden sm:block" /> 
                 <span className="sm:hidden"> </span>brilliance, and shaping minds  with a story worth telling.
             </p>
-            <Carousel3DSelect
-                
-                learners={learners}
-                radius={500}
-                itemWidth={250}
-                itemHeight={310}
-                autoScroll={true}
-       
-                placeholder="Pick a template"
-                
-         
-            />
+            {/* Mobile View - Show all learners in 1 column */}
+            <div className="flex justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-20 mt-10 w-full sm:hidden [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+                <TestimonialsColumn testimonials={testimonials} duration={20} className="w-full" />
+            </div>
+
+            {/* Tablet & Desktop View - Show 2-3 columns */}
+            <div className="hidden sm:flex justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-20 mt-10 w-full [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+                <TestimonialsColumn testimonials={firstColumn} duration={15} className="w-1/2 xl:w-1/3" />
+                <TestimonialsColumn testimonials={secondColumn} className="w-1/2 xl:w-1/3" duration={19} />
+                <TestimonialsColumn testimonials={thirdColumn} className="hidden xl:block w-1/3" duration={17} />
+            </div>
 
 
         </div>

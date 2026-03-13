@@ -1,10 +1,10 @@
-import FAQs from "@/components/ui/text-reveal-faqs";
+import {FaqsSection} from "./ui/faqs-1";
 
 export default function Faq(){
     return(
         <>
-        <div id="faq">
-            <FAQs ></FAQs>
+        <div id="faq" >
+            <FaqsSection />
         </div>
          
         </>
