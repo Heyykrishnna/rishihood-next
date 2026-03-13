@@ -174,7 +174,7 @@ export default function Programs() {
           >
             
             <AnimatePresence mode="wait">
-              {activeIndex !== -1 && (
+              {activeIndex !== -1 ? (
                 <motion.div
                   key={activeIndex}
                   initial={{ opacity: 0, y: 10 }}
@@ -226,6 +226,31 @@ export default function Programs() {
                         View Program
                       </button>
                     )}
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 rounded-3xl overflow-hidden"
+                >
+                  <motion.img 
+                    initial={{ scale: 1.05 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    src="https://framerusercontent.com/images/pxMvi4f6x3gSEzNzc2TDX0aFGMQ.jpeg?scale-down-to=4096&width=5184&height=2772"
+                    alt="Rishihood Campus"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center">
+                    <div className="bg-[#e6dcc8] backdrop-blur-xl px-8 py-4 rounded-full border border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
+                      <p className="text-[#7a131f] font-medium tracking-wide text-[15px] drop-shadow-sm">
+                        Select a program to view details
+                      </p>
+                    </div>
                   </div>
                 </motion.div>
               )}
