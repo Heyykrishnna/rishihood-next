@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useCallback, useState } from 'react';
-import gsap from 'gsap';
 import BlurText from './BlurText';
 
 const row1Images = [
@@ -33,9 +32,8 @@ const labels = ['Campus Life', 'Fest Vibes', 'Learning', 'Community', 'Innovatio
 
 function GalleryCard({ src, index }: { src: string; index: number }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -52,72 +50,40 @@ function GalleryCard({ src, index }: { src: string; index: number }) {
     return () => observer.disconnect();
   }, []);
 
-  const handleMouseEnter = useCallback(() => {
-    if (!cardRef.current || !overlayRef.current || !imgRef.current) return;
-    gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: 'power2.out' });
-    gsap.to(imgRef.current, { scale: 1.08, duration: 0.5, ease: 'power2.out' });
-    gsap.to(cardRef.current, { boxShadow: '0 16px 48px rgba(208,7,54,0.22), 0 4px 16px rgba(0,0,0,0.12)', duration: 0.3 });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    if (!cardRef.current || !overlayRef.current || !imgRef.current) return;
-    gsap.to(overlayRef.current, { opacity: 0, duration: 0.35, ease: 'power2.in' });
-    gsap.to(imgRef.current, { scale: 1, duration: 0.45, ease: 'power2.inOut' });
-    gsap.to(cardRef.current, {
-      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-      transform: 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)',
-      duration: 0.4,
-      ease: 'power2.out',
-    });
-  }, []);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const rotX = ((e.clientY - rect.top - rect.height / 2) / rect.height) * -10;
-    const rotY = ((e.clientX - rect.left - rect.width / 2) / rect.width) * 10;
-    gsap.to(cardRef.current, {
-      transform: `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.04)`,
-      duration: 0.15,
-      ease: 'none',
-      overwrite: 'auto',
-    });
-  }, []);
-
   return (
     <div
       ref={cardRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      className="shrink-0 w-[clamp(200px,21vw,360px)] h-[clamp(130px,13vw,230px)] rounded-[14px] overflow-hidden relative shadow-[0_4px_20px_rgba(0,0,0,0.08)] transform-3d bg-[#f5ebe0]"
+      className="shrink-0 w-[clamp(200px,21vw,360px)] h-[clamp(130px,13vw,230px)] rounded-[14px] overflow-hidden relative shadow-[0_4px_20px_rgba(0,0,0,0.06)] bg-[#eae0d5] group cursor-pointer border border-white/40"
     >
-      {isVisible ? (
-        <img
-          ref={imgRef}
-          src={src}
-          alt={labels[index] ?? ''}
-          loading="lazy"
-          draggable={false}
-          className="w-full h-full object-cover block select-none pointer-events-none origin-center transition-opacity duration-500"
-        />
-      ) : null}
+      {isVisible && (
+        <>
+          <div className={`absolute inset-0 bg-[#f5ebe0] animate-pulse transition-opacity duration-700 ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
+          
+          <img
+            src={src}
+            alt={labels[index] ?? ''}
+            loading="lazy"
+            draggable={false}
+            onLoad={() => setIsLoaded(true)}
+            className={`w-full h-full object-cover block select-none pointer-events-none transition-all duration-1000 ease-[0.19,1,0.22,1]
+              ${isLoaded ? 'opacity-100 scale-100 grayscale-0' : 'opacity-0 scale-110 grayscale'}
+              group-hover:scale-105 group-hover:brightness-[1.05] group-hover:shadow-inner`}
+          />
 
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 opacity-0 flex flex-col items-start justify-end p-4 pointer-events-none"
-        style={{ background: 'linear-gradient(160deg, rgba(208,7,54,0.55) 0%, rgba(20,10,10,0.75) 100%)' }}
-      >
-        <span className="absolute top-3 right-3 text-[0.65rem] font-bold tracking-[0.12em] text-white/60 font-mono">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-        <div className="w-7 h-[2.5px] bg-[#ff3d5e] rounded-sm mb-2" />
-        <span className="text-[clamp(0.75rem,1.4vw,0.95rem)] font-semibold text-white tracking-[0.04em] leading-tight font-primary">
-          {labels[index] ?? 'Campus'}
-        </span>
-      </div>
+          <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-      <div className="absolute bottom-0 left-0 w-full h-[2.5px] bg-linear-to-r from-[#d00736] to-transparent opacity-60 pointer-events-none" />
+          <div className="absolute bottom-3 left-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out z-10 pointer-events-none">
+            <div className="bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.1)] border border-white/60 flex items-center gap-2">
+              <span className="text-[10px] font-bold tracking-widest text-[#d00736] font-mono">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className="text-xs font-semibold text-[#111] tracking-wide font-primary">
+                {labels[index] ?? 'Campus'}
+              </span>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -64,10 +64,11 @@ export default function Stats() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
           <ScrubCard 
             direction="left"
-            className={`lg:col-span-6 xl:col-span-5 group bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 flex flex-col justify-center items-start
-              transition-all duration-500 ease-out
-              hover:shadow-[0_8px_40px_rgba(208,7,54,0.10)] hover:border-[#f0c6cf] hover:-translate-y-1`}
+            className={`lg:col-span-6 xl:col-span-5 group bg-white/80 backdrop-blur-xl rounded-4xl p-8 md:p-14 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-white/60 flex flex-col justify-center items-start
+              transition-all duration-700 ease-out relative overflow-hidden
+              hover:shadow-[0_12px_50px_rgba(208,7,54,0.12)] hover:border-[#f5dde2]/80 hover:-translate-y-1.5`}
           >
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(ellipse_at_top_right,rgba(208,7,54,0.08)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             <BlurText
               text="Approaching Rishihood"
               delay={30}
@@ -92,10 +93,11 @@ export default function Stats() {
 
           <ScrubCard 
             direction="right"
-            className="lg:col-span-6 xl:col-span-7 rounded-2xl md:rounded-3xl overflow-hidden shadow-sm border border-gray-100 h-[300px] sm:h-[400px] lg:h-auto
-              group transition-all duration-500 ease-out
-              hover:shadow-[0_12px_48px_rgba(0,0,0,0.12)] hover:-translate-y-1 hover:border-gray-200"
+            className="lg:col-span-6 xl:col-span-7 rounded-4xl overflow-hidden shadow-[0_4px_25px_rgba(0,0,0,0.05)] border border-white/60 h-[300px] sm:h-[400px] lg:h-auto
+              group transition-all duration-700 ease-out relative
+              hover:shadow-[0_16px_60px_rgba(208,7,54,0.15)] hover:-translate-y-1.5 hover:border-[#f5dde2]/80"
           >
+            <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             <img 
               src="https://framerusercontent.com/images/7MyhsrkNz01pfukKf1ZVSf04z1M.jpg?scale-down-to=4096&width=6000&height=4000" 
               alt="Speaker" 
@@ -141,9 +143,9 @@ export default function Stats() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <ScrubCard 
             direction="left"
-            className="group bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 relative overflow-hidden flex flex-col justify-center min-h-[200px]
-              transition-all duration-500 ease-out
-              hover:shadow-[0_8px_40px_rgba(208,7,54,0.10)] hover:border-[#f0c6cf] hover:-translate-y-1"
+            className="group bg-white/80 backdrop-blur-xl rounded-4xl p-8 md:p-12 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-white/60 relative overflow-hidden flex flex-col justify-center min-h-[200px]
+              transition-all duration-700 ease-out
+              hover:shadow-[0_12px_50px_rgba(208,7,54,0.12)] hover:border-[#f5dde2]/80 hover:-translate-y-1.5"
           >
             <LeafSVG className="absolute right-0 top-1/2 -translate-y-1/2 w-[300px] md:w-[400px] h-auto opacity-30 translate-x-[20%] pointer-events-none
               transition-all duration-700 group-hover:opacity-50 group-hover:scale-105" />
@@ -173,9 +175,9 @@ export default function Stats() {
 
           <ScrubCard 
             direction="right"
-            className="group bg-white rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 relative overflow-hidden flex flex-col justify-center min-h-[200px]
-              transition-all duration-500 ease-out
-              hover:shadow-[0_8px_40px_rgba(208,7,54,0.10)] hover:border-[#f0c6cf] hover:-translate-y-1"
+            className="group bg-white/80 backdrop-blur-xl rounded-4xl p-8 md:p-12 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-white/60 relative overflow-hidden flex flex-col justify-center min-h-[200px]
+              transition-all duration-700 ease-out
+              hover:shadow-[0_12px_50px_rgba(208,7,54,0.12)] hover:border-[#f5dde2]/80 hover:-translate-y-1.5"
           >
             <LeafSVG className="absolute left-0 lg:right-20 bottom-0 lg:top-1/2 w-[160px] md:w-[250px] lg:w-[100px] h-auto opacity-80 lg:-translate-y-1/2 lg:translate-x-[20%] pointer-events-none translate-y-[20%] lg:-translate-y-1/2
               transition-all duration-700 group-hover:opacity-100 group-hover:scale-110" />
