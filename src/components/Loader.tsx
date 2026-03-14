@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Loader = ({ show }: { show: boolean }) => {
-  const textChars = "RISHIHOOD".split("");
+  const textChars = "RISHIHOOD UNIVERSITY".split(" ");
 
   return (
     <AnimatePresence>
@@ -71,7 +71,7 @@ const Loader = ({ show }: { show: boolean }) => {
                   ease: [0.76, 0, 0.24, 1],
                   delay: 0.8 + index * 0.05,
                 }}
-                className="text-[14vw] md:text-[8vw] font-black leading-none tracking-tighter origin-bottom"
+                className="text-3xl md:text-7xl font-black leading-none tracking-tighter origin-bottom"
                 style={{
                   background: 'linear-gradient(to bottom, #ffffff 20%, #888888 100%)',
                   WebkitBackgroundClip: 'text',

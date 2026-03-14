@@ -117,7 +117,13 @@ export default function Navbar() {
           </div>
         </button>
 
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto flex items-center gap-3">
+            <a href="https://apply.rishihood.edu.in/" target="_blank" rel="noopener noreferrer">
+              <button className="px-4 md:px-5 py-2.5 rounded-full flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] cursor-pointer border border-transparent backdrop-blur-lg bg-[#d00736] text-white hover:bg-[#b0062d]">
+                Apply Now
+                <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.5} />
+              </button>
+            </a>
            <button
             onClick={() => setIsOpen(!isOpen)}
             className={`px-5 py-2.5 rounded-full flex items-center justify-center gap-3 font-medium text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 cursor-pointer border backdrop-blur-lg min-w-[110px] ${
