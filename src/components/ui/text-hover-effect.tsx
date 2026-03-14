@@ -41,15 +41,11 @@ export const TextHoverEffect = ({ text, duration, className }: { text: string, d
           cy="50%"
           r="25%"
         >
-          {hovered && (
-            <>
-              <stop offset="0%" stopColor="#ff4d4d" />
-              <stop offset="25%" stopColor="#d00736" />
-              <stop offset="50%" stopColor="#a30026" />
-              <stop offset="75%" stopColor="#d00736" />
-              <stop offset="100%" stopColor="#ff4d4d" />
-            </>
-          )}
+          <stop offset="0%" stopColor="#ff4d4d" />
+          <stop offset="25%" stopColor="#d00736" />
+          <stop offset="50%" stopColor="#a30026" />
+          <stop offset="75%" stopColor="#d00736" />
+          <stop offset="100%" stopColor="#ff4d4d" />
         </linearGradient>
 
         <motion.radialGradient
@@ -73,38 +69,22 @@ export const TextHoverEffect = ({ text, duration, className }: { text: string, d
           />
         </mask>
       </defs>
-      <text
-        x="50%"
-        y="50%"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        strokeWidth="1"
-        className="fill-transparent stroke-white/20 font-primary font-black dark:stroke-white/20"
-        style={{ opacity: hovered ? 0 : 1, fontSize: '80px', letterSpacing: '-0.05em' }}
-      >
-        {text}
-      </text>
       <motion.text
         x="50%"
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="1"
-        className="fill-transparent stroke-[#d00736] font-primary font-black dark:stroke-[#d00736]/60"
-        style={{ opacity: hovered ? 0.9 : 0, fontSize: '80px', letterSpacing: '-0.05em' }}
-        initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
-        animate={{
-          strokeDashoffset: 0,
-          strokeDasharray: 1000,
-        }}
-        transition={{
-          duration: 4,
-          ease: "easeInOut",
-        }}
+        className="fill-transparent stroke-white/20 font-primary font-black dark:stroke-white/20"
+        style={{ fontSize: '80px', letterSpacing: '-0.05em' }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: hovered ? 0 : 1 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         {text}
       </motion.text>
-      <text
+
+      <motion.text
         x="50%"
         y="50%"
         textAnchor="middle"
@@ -114,10 +94,13 @@ export const TextHoverEffect = ({ text, duration, className }: { text: string, d
         strokeWidth="0.5"
         mask="url(#textMask)"
         className="font-primary font-black"
-        style={{ opacity: 1, fontSize: '80px', letterSpacing: '-0.05em' }}
+        style={{ fontSize: '80px', letterSpacing: '-0.05em' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         {text}
-      </text>
+      </motion.text>
     </svg>
   );
 };
