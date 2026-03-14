@@ -21,13 +21,13 @@ type SlideData = {
 const slides: SlideData[] = [
   {
     type: 'admissions',
-    image: "https://framerusercontent.com/images/pxMvi4f6x3gSEzNzc2TDX0aFGMQ.jpeg?scale-down-to=4096&width=5184&height=2772",
+    image: "./images/Hero/Uni.avif",
     italicHeading: "Begin your Rishihood Journey",
     boldHeading: "2026 Admissions Now Open",
   },
   {
     type: 'foundational',
-    image: "https://framerusercontent.com/images/7MyhsrkNz01pfukKf1ZVSf04z1M.jpg?scale-down-to=4096&width=6000&height=4000",
+    image: "./images/Hero/speak.avif",
     italicHeading: "Foundational Learning",
     boldHeading: "Future-Ready Thinking",
     subHeading: "Shaping Learners through",
@@ -36,7 +36,7 @@ const slides: SlideData[] = [
   },
   {
     type: 'partnerships',
-    image: "https://framerusercontent.com/images/6wFKuxRFyZggeoS2RW96bByolM.jpg?scale-down-to=4096&width=6000&height=4000",
+    image: "./images/Hero/class.avif",
     italicHeading: "Industry-Driven Learning",
     boldHeading: "Real-World Impact",
     subHeading: "Delivered in Partnership with:",
@@ -44,7 +44,7 @@ const slides: SlideData[] = [
   },
   {
     type: 'startup',
-    image: "https://framerusercontent.com/images/EhpbFPhmT6FGFDOknfMwtoP0Y.png?width=1200&height=736", 
+    image: "./images/Hero/flag.avif", 
     italicHeading: "Graduate with a",
     boldHeading: "Startup",
     buttonText: "Apply now"

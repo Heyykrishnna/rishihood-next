@@ -99,7 +99,7 @@ export default function Stats() {
           >
             <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
             <img 
-              src="https://framerusercontent.com/images/7MyhsrkNz01pfukKf1ZVSf04z1M.jpg?scale-down-to=4096&width=6000&height=4000" 
+              src="./images/Hero/speak.avif" 
               alt="Speaker" 
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
@@ -121,7 +121,7 @@ export default function Stats() {
           
           <div className="w-full md:w-1/3 flex justify-center items-end self-end z-10">
             <img 
-              src="https://framerusercontent.com/images/wto8A0XGiC0azyEaFGUnuXm9I.png?width=838&height=1021" 
+              src="./images/stats/swami.avif" 
               alt="Swami Vivekananda" 
               className="w-32 md:w-48 lg:w-[160px] h-auto object-contain drop-shadow-xl translate-y-2 md:translate-y-8
                 transition-transform duration-500 ease-out group-hover:drop-shadow-2xl"

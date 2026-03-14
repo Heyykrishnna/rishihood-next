@@ -99,7 +99,7 @@ export default function Navbar() {
         >
           <div className="relative h-8 md:h-10 lg:h-12 w-32 md:w-48 lg:w-56">
             <img
-              src="https://framerusercontent.com/images/NKvCUEL0ORnQgJto11PdvOykNk.png?scale-down-to=512&width=704&height=280"
+              src="./images/logo1.avif"
               alt="Rishihood University Logo"
               className={`absolute inset-0 h-full w-auto object-contain brightness-0 invert transition-opacity duration-700 ease-in-out ${
                 showDarkLogo ? 'opacity-0' : 'opacity-100'
@@ -107,7 +107,7 @@ export default function Navbar() {
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <img
-              src="https://framerusercontent.com/images/5UoshHiRcmY4IutYIv00ZAKewU.png?scale-down-to=512&width=3585&height=1319"
+              src="./images/logo2.avif"
               alt="Rishihood University Logo"
               className={`absolute inset-0 h-full w-auto object-contain transition-opacity duration-700 ease-in-out ${
                 showDarkLogo ? 'opacity-100' : 'opacity-0'

@@ -18,7 +18,7 @@ const featuredCard: MediaItem = {
   title: "Nobel Laureate Kailash Satyarthi inaugurates Rishihood University's Mahesh Navani School of Brain, Body, and Behaviour (MaNaS)",
   date: "19 August 2025",
   source: "ANI",
-  image: "https://framerusercontent.com/images/PV3wjfqG5t5o9w0ZjU9DT0EZVo.png?width=1870&height=1656",
+  image: "./images/Media/m1.avif",
   featured: true,
   tag: "#PillarsOfRishihood"
 };
@@ -29,7 +29,7 @@ const newsCardsPage1: MediaItem[] = [
     title: "Rishihood University launches MaNas to redefine mental health, psychology & behavioural education in India",
     date: "19 August 2025",
     source: "Hindustan Times",
-    image: "https://framerusercontent.com/images/pJhUCj7MTey229BhTwt2DCqc3E.png?width=1358&height=766.jpg",
+    image: "./images/Media/m2.avif",
     tag:"Hindustan Times"
   },
   {
@@ -37,7 +37,7 @@ const newsCardsPage1: MediaItem[] = [
     title: "93% of Newton School of Technology's 1st batch lands in internship placement",
     date: "13 May, 2025",
     source: "Inshorts",
-    image: "https://framerusercontent.com/images/YHzODagyiBEpAyhCiGUhHkQTiw.png?width=800&height=666.jpg",
+    image: "./images/Media/m3.avif",
     tag: "Inshorts"
   },
   {
@@ -45,7 +45,7 @@ const newsCardsPage1: MediaItem[] = [
     title: "Rishihood University offers Rs 7 crore Bharat100 scholarship for UG programmes",
     date: "18 June, 2024",
     source: "India Today",
-    image:"https://framerusercontent.com/images/chiAL9dJTTcifXyQonbcy040sU.png?width=690&height=388.jpg",
+    image:"./images/Media/m4.avif",
     tag: "India Today"
   }
 ];
@@ -56,7 +56,7 @@ const newsCardsPage2: MediaItem[] = [
     title: "AI Can Do Everything We Can But Only Humans Can Decide What Should Be Done",
     date: "13 October 2024",
     source: "The Tribune",
-    image: "https://framerusercontent.com/images/L8wKA4JPC6lxYTdzhJUXloF6AOY.png?width=1024&height=540",
+    image: "./images/Media/m5.avif",
     tag: "The Tribune"
   },
   {
@@ -64,7 +64,7 @@ const newsCardsPage2: MediaItem[] = [
     title: "Suresh Prabhu joins Rishihood University as the Founding Chancellor",
     date: "04 July 2020",
     source: "Business Standard",
-    image: "https://framerusercontent.com/images/8EjFUfGkHi9AJHlqPy3t6Sp8Aj4.png?width=500&height=500",
+    image: "./images/Media/m6.avif",  
     tag: "Business Standard"
   },
   {
@@ -72,7 +72,7 @@ const newsCardsPage2: MediaItem[] = [
     title: "Rishihood University on-boards Ravinder Pal Singh as its Chief Information & Innovation Officer",
     date: "09 February 2021",
     source: "Hindustan Times",
-    image: "https://framerusercontent.com/images/DXD7U1iUAi0Pz6enrieAeXD9JD8.png?width=1050&height=1050",
+    image: "./images/Media/m7.avif",
     tag: "Hindustan Times"
   }
 ];

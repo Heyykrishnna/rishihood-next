@@ -15,7 +15,7 @@ const experiences = [
     tag: 'Inner Journey',
     description:
       'Soul Trek is a transformative learning experience for first-year undergraduate learners, where our learners engage in community service and learn by giving back to society. Walk into the unknown and return knowing yourself.',
-    image: 'https://framerusercontent.com/images/X6ScxKebktNS6RthJFdrjTVfsQ.jpg?width=1920&height=1080',
+    image: './images/Experience/e1.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -25,7 +25,7 @@ const experiences = [
     tag: 'Endurance',
     description:
       'Every year at Rishihood University, our learners and faculty take on the 100 Km walk. Over two days, we walk 50 km forward and 50 km back to test our endurance and find our purpose.',
-    image: 'https://framerusercontent.com/images/BXvjQ9KIzJjJaaxZ8PfKzj6I8.jpg?width=1920&height=1080',
+    image: './images/Experience/e2.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -35,7 +35,7 @@ const experiences = [
     tag: 'Entrepreneurship',
     description:
       "Turn your ideas into real startups through rapid prototyping, mentorship and seed-stage support. Learners get to ideate, test, launch and grow their ventures.",
-    image: 'https://framerusercontent.com/images/3U49wtgtu8cMYzvIgGU9eU5E0.jpg?scale-down-to=4096&width=5862&height=3908',
+    image: './images/Experience/e3.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -45,7 +45,7 @@ const experiences = [
     tag: 'Fests & Culture',
     description:
       'From soulful aartis to electrifying concerts, our campus fests celebrate culture, creativity, and community, bringing learners together in moments that become memories.',
-    image: 'https://framerusercontent.com/images/s6ppUHfqV3g4AlYT9BDr0leBo.jpg?scale-down-to=4096&width=5052&height=3368',
+    image: './images/Experience/e4.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -55,7 +55,7 @@ const experiences = [
     tag: 'World Exposure',
     description:
       'Beyond borders lies your greatest classroom. Learners travel to world-class institutions and return with a worldview no textbook can teach.',
-    image: 'https://cdn.prod.website-files.com/62e8d2ea218fb7676b6892a6/6834e68d20cdc8deca1c497c_img%202.avif',
+    image: './images/Experience/e5.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -65,7 +65,7 @@ const experiences = [
     tag: 'Milestone',
     description:
       'Our 10-year milestone was marked by inspiring conversations and presence of eminent leaders, reflecting a decade of purpose-driven education and national impact.',
-    image: 'https://framerusercontent.com/images/ChlKClBeKwRvYSaGOHeK5PBYMFs.png?width=2176&height=1500',
+    image: './images/Experience/e6.avif',  
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -75,7 +75,7 @@ const experiences = [
     tag: 'Real World Projects',
     description:
       'From building apps to crafting design prototypes and pitching business ideas our foundation program fosters cross-disciplinary collaboration from day one.',
-    image: 'https://framerusercontent.com/images/xMRNDlEGu84kU4J44NqwaoAsvs.jpg?scale-down-to=4096&width=5184&height=3456',
+    image: './images/Experience/e7.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -85,7 +85,7 @@ const experiences = [
     tag: 'AI & Immersive Media',
     description:
       'Step into the future of storytelling. Our Immersive Media Lab combines AI, VR, and AR to create experiences that blur the line between the digital and the real.',
-    image: 'https://framerusercontent.com/images/ApOp5zC7z19QtRGYSSTnXVXM4.png?scale-down-to=1024&width=1248&height=749',
+    image: './images/Experience/e8.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -95,7 +95,7 @@ const experiences = [
     tag: 'Sports',
     description:
       'From state-of-the-art gyms to sprawling sports fields, we provide the infrastructure for you to push your limits and play your best.',
-    image: 'https://framerusercontent.com/images/iOhsWz43ozNecZ0xak1FGgF4dXw.jpg?width=4096&height=2731',
+    image: './images/Experience/e9.avif',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },
@@ -105,7 +105,7 @@ const experiences = [
     tag: 'Campus Life',
     description:
       'Explore of our 25-acre, living-learning campus with immersive labs, green spaces, and places to grow in every direction.',
-    image: 'https://framerusercontent.com/images/XFjzi1N8IY9NG8fcSIM2Ev9sc.webp?width=680&height=377',
+    image: './images/Experience/e10.webp',
     link: 'https://rishihood.edu.in/',
     color: '#d00736',
   },

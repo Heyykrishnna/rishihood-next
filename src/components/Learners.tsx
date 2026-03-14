@@ -9,74 +9,74 @@ export default function Learners(){
 
     const testimonials = [
         {
-            img:"https://framerusercontent.com/images/YOsD76jbx0ZQIaGxjrS83lLhRsI.png?width=2512&height=1436",
+            img:"./images/Learners/l1.avif",
             name:"Kokila Hada",
             course:"BBA (Finance)",
             quote:"I loved studying Financial Accounts it taught me how to manage my money and time. My advice to juniors: join clubs, use the sports grounds, and attend every guest lecture!"
 
         },
         {
-            img:"https://framerusercontent.com/images/dco2CO8Qkx4oRoyEYwHnBCGaHA.png?width=1580&height=1436",
+            img:"./images/Learners/l2.avif",
             name:"Yashasvi Kaushik",
             course:"Makers BBA",
             quote:"I enjoyed a great rapport with my professors who mentored me throughout my journey — especially Chitra ma’am, whose advice and support guided me constantly."
         },
         {
-            img:"https://framerusercontent.com/images/yvzWeq2MsrxX46PMmwqrw5pMzo.png?width=1324&height=1430",
+            img:"./images/Learners/l3.avif",
             name:"Anushika",
             course:"B.Sc (Hons) Psychology",
             quote:"College helped me discover who I am and what I can do. Social Psychology, taught by Richa Goenka ma’am, taught me how to connect with and understand people better."
         },
         {
-            img:"https://framerusercontent.com/images/tAuoxu9RJ4f6QH011FryZRUy7A.png?width=1120&height=928",
+            img:"./images/Learners/l4.avif",
             name:"Ansh",
             course:"B.Design",
             quote:"In my first year, my professor told me to “stop thinking and start doing.” That one line changed my approach to design and continues to inspire me today."
         },
         {
-            img:"https://framerusercontent.com/images/7RuDYZuQP8z0Hk9N65hzOwRL8M.png?width=1056&height=992",
+            img:"./images/Learners/l5.avif",
             name:"Janya Sharma",
             course:"Makers BBA",
             quote:"I’ll always cherish managing college events and fests. Entrepreneurship and Innovation classes taught me real-life lessons, and my professors helped me grow at every step."
         },
         {
-            img:"https://framerusercontent.com/images/zPFLmvTwRKiAUBLVqRqZ3Op0Q.png?width=2546&height=1442",
+            img:"./images/Learners/l6.avif",
             name:"Hema Naga",
             course:"Makers BBA",
             quote:"My faculty, especially Chitra ma’am, were my strongest support system. Project Management became my favorite subject — it taught me planning, strategy, and confidence."
         },
            {
-            img:"https://framerusercontent.com/images/d4CknNytUJQFqYJTJxGQc87RLt0.png?width=832&height=1248",
+            img:"./images/Learners/l7.avif",
             name:"Kushagri",
             course:"B.Sc (Hons) Psychology",
             quote:" Studying Psychology here has been incredible from hands-on EEG experiments to faculty who treat us as equals. With world-class facilities and an inspiring campus, every day motivates me to do more."
         },
         {
-            img:"https://framerusercontent.com/images/abPSVKzVG3joMcAoc6BPaSyiRGk.png?width=832&height=1248",
+            img:"./images/Learners/l8.avif",
             name:"Puneet Kutharia",
             course:"B.Tech CS and AI",
             quote:"Courses like Principles of Design taught me to think through a problem from concept to prototype. The faculty guided me throughout my startup journey and helped me build valuable industry connections."
         },
         {
-            img:"https://framerusercontent.com/images/u65dKxA9zXROPKNM4R6RHyIt0JU.png?width=832&height=1248",
+            img:"./images/Learners/l9.avif",
             name:"Parth Vardhan Saxena",
             course:"Makers BBA",
             quote:"I’m grateful to my mentors and the Founder for supporting my startup through the Maker’s Fund. The ₹10 lakh grant helped me refine my product and gain real-world experience."
         },
         {
-            img:"https://framerusercontent.com/images/4TpNqIHufgF0NjZdyq0nNyLOUN4.png?width=1024&height=1024",
+            img:"./images/Learners/l10.avif",
             name:"Khushi Nitin Dhole",
             course:"B.Design",
             quote:"Through the curriculum, I learned to use tools I once overlooked. The faculty here is very supportive too. I can always reach out, and they help me, which I appreciate a lot. The design faculty is excellent and very supportive."
         },
         {
-            img:"https://framerusercontent.com/images/r9ZoZmEybsXfqrmXcx3OJZOpuk.png?width=611&height=325",
+            img:"./images/Learners/l11.avif",
             name:"Sharon Saji",
             course:"B.Design",
             quote:"My internship in France gave me global exposure and the chance to learn from international artists and designers. Rishihood made that possible — it truly opened up the world for me."
         },
         {
-            img:"https://framerusercontent.com/images/6YuVhZZUjo22liy2EBZ3QsvarYM.png?width=768&height=853",
+            img:"./images/Learners/l12.avif",
             name:"Michelle D'Sa",
             course:"B.Design",
             quote:"The faculty shared their real-world experiences and encouraged me to explore my creative side fearlessly. My time here gave me confidence and clarity about my strengths as a designer.",

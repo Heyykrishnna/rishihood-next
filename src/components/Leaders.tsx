@@ -15,34 +15,34 @@ gsap.registerPlugin(ScrollTrigger);
 
 const people = [
     {
-        img:"https://framerusercontent.com/images/qPuKtFOkq7X2Uijn99W8JlKOT4.png",
+        img:"./images/Leaders/l1.avif",
         name:"Shobhit Mathur",
         occupation:"Co-Founder & Vice Chancellor, Rishihood University",
-        edimg:"https://framerusercontent.com/images/MzyyufpM2EqML8IjkODFh2g10s.png"
+        edimg:"./images/Leaders/isb.avif"
     },
      {
-        img:"https://framerusercontent.com/images/nKWsNAXGeoexDi6yWSETwBa6XjQ.png",
+        img:"./images/Leaders/l2.avif",
         name:"Sahil Aggarwal",
         occupation:"Co-Founder & CEO, Rishihood University",
-        edimg:"https://framerusercontent.com/images/WUli7Ysmb3KQUFIZO6yDhSBrQYY.webp"
+        edimg:"./images/Leaders/l2ed.webp"
     },
      {
-        img:"https://framerusercontent.com/images/9sQQNm8JEF3dKUVKbNA0PDBcCJg.png?width=500&height=500",
+        img:"./images/Leaders/l3.avif",
         name:"Motilal Oswal",
         occupation:"MD and CEO,Motilal Oswal Group",
-        edimg:"https://framerusercontent.com/images/qjjknbSSqZgWBsjpkebigGscLNs.webp?width=90&height=90"
+        edimg:"./images/Leaders/mo.webp"
     },
      {
-        img:"https://framerusercontent.com/images/cXgtCkGsydpBdAf3c4hyPFrROc.png",
+        img:"./images/Leaders/l4.avif",
         name:"Aditya Pittie",
         occupation:"Entrepreneur | Angel Investor | Mentor for India's Innovation Ecosystem",
-        edimg:"https://framerusercontent.com/images/i4vAwLSHGIYfi7aI6hN4VPAUSE.webp"
+        edimg:"./images/Leaders/mit.webp"
     },
      {
-        img:"https://framerusercontent.com/images/BEAkQRWICGa8CVNjsIfnhSdyU.png",
+        img:"./images/Leaders/l5.avif",
         name:"Ajay Gupta",
         occupation:"Founder & CEO,Bachpan Play School",
-        edimg:"https://framerusercontent.com/images/ZTEKXDB0dDx6PnSu4DD6wBFUofM.webp"
+        edimg:"./images/Leaders/bachpan.webp"
     },
 ]
 export default function Leaders(){

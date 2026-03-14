@@ -1,21 +1,21 @@
 export default function Blog(){
     const blog=[
         {
-            img:"https://framerusercontent.com/images/AZo7tArDN6A772n1wq5AXLH6LU.webp?width=840&height=473",
+            img:"./images/Blog/b1.avif",
             genere:"Artificial Intelligence",
             title:"India’s Deep Tech Ambition: A Call for Innovation",
             desc:"Commerce Minister Piyush Goyal set the stage ablaze at Startup Mahakumbh 2025 (April,3rd) challenging India’s startup ecosystem to pivot from consumer-driven ventures like artisanal ice creams to transformative technologies like AI and semiconductor chips. ",
             date:"11 September 2025"
         },
         {
-            img:"https://framerusercontent.com/images/rhFv8b4w0HJfpGXO9kEFX4atZ8.png?width=1600&height=778",
+            img:"./images/Blog/b2.avif",
             genere:"Technology",
             title:"Inside the First-Year Student Outcomes of Rishihood University’s CS & DS Program  ",
             desc:"At Rishihood University, the success of our B.Tech in CS & DS program isn’t measured by grades alone. It shows up in what students build, ",
             date:"09 February 2026"
         },
         {
-            img:"https://framerusercontent.com/images/WPFvFE1OSJwD0FHSKcLjr7EPho.png?width=1272&height=780",
+            img:"./images/Blog/b3.avif",
             genere:"Technology",
             title:"25 Fantastic Career Options in Artificial Intelligence for B.Tech Students",
             desc:"The blog lists 25 fantastic career options in artificial intelligence for B.Tech students in India who want to pursue engineering and CS AI.",

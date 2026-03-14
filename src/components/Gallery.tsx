@@ -4,25 +4,25 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import BlurText from './BlurText';
 
 const row1Images = [
-  'https://framerusercontent.com/images/or5LAExZVFnZxtzcr2l40P4PE.jpg',
-  'https://framerusercontent.com/images/nq6s1WwiUbcUptZbDATAdwDlNA.jpg',
-  'https://framerusercontent.com/images/sDyjUcOWyBqcOAH47zI8vbpTqw.jpg',
-  'https://framerusercontent.com/images/T7KtIUVjyVSOypWisAdW7ZEdG0.jpg',
-  'https://framerusercontent.com/images/L7d3klkaL6QFb05IUcM45oTxRrI.jpg',
-  'https://framerusercontent.com/images/OL0ocYpVVJFbGKbzxVJYHlLrmM.jpg',
-  'https://framerusercontent.com/images/yhEDHENrBEChIwsFmayZ8S9Oaw.jpg',
-  'https://framerusercontent.com/images/b4oE5B46CZ13bzVwVyxMfIMLQ.jpg',
+  './images/Gallery/g1.avif',
+  './images/Gallery/g2.avif',
+  './images/Gallery/g3.jpg',
+  './images/Gallery/g4.jpg',
+  './images/Gallery/g5.avif',
+  './images/Gallery/g6.avif',
+  './images/Gallery/g7.avif',
+  './images/Gallery/g8.avif',
 ];
 
 const row2Images = [
-  'https://framerusercontent.com/images/JyoFPhlbGCeEoYluglkTCLa6qw.jpg',
-  'https://framerusercontent.com/images/NaQwlRUNLo1UOP0OBnCXbMMNiXU.jpg',
-  'https://framerusercontent.com/images/Em54650Np5Bs5JfEnujdGgj2YVY.jpg',
-  'https://framerusercontent.com/images/jhYBzyfntvRtmLrX1bpe6eSnBU.jpg',
-  'https://framerusercontent.com/images/L7d3klkaL6QFb05IUcM45oTxRrI.jpg',
-  'https://framerusercontent.com/images/OL0ocYpVVJFbGKbzxVJYHlLrmM.jpg',
-  'https://framerusercontent.com/images/yhEDHENrBEChIwsFmayZ8S9Oaw.jpg',
-  'https://framerusercontent.com/images/b4oE5B46CZ13bzVwVyxMfIMLQ.jpg',
+  './images/Gallery/g9.jpg',
+  './images/Gallery/g10.avif',
+  './images/Gallery/g11.avif',
+  './images/Gallery/g12.jpg',
+  './images/Gallery/g5.avif',
+  './images/Gallery/g6.avif',
+  './images/Gallery/g7.avif',
+  './images/Gallery/g8.avif',
 ];
 
 const row1 = [...row1Images, ...row1Images, ...row1Images];
