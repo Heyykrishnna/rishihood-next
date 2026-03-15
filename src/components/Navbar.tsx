@@ -69,23 +69,23 @@ export default function Navbar() {
   const showDarkLogo = isScrolled || isOpen;
 
   const menuVariants = {
-    closed: { 
+    closed: {
       x: isMobile ? "0%" : "100%",
       y: isMobile ? "-100%" : "0%",
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const } 
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const }
     },
-    open: { 
-      x: "0%", 
+    open: {
+      x: "0%",
       y: "0%",
-      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const } 
+      transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] as const }
     }
   };
 
   const itemVariants = {
     closed: { y: 60, opacity: 0, scale: 0.95 },
     open: (i: number) => ({
-      y: 0, 
-      opacity: 1, 
+      y: 0,
+      opacity: 1,
       scale: 1,
       transition: { duration: 0.6, delay: 0.3 + (i * 0.08), ease: [0.25, 1, 0.5, 1] as const }
     })
@@ -99,48 +99,44 @@ export default function Navbar() {
   return (
     <>
       <div className={`fixed top-0 left-0 w-full z-300 px-4 md:px-12 py-4 md:py-6 flex justify-between items-center pointer-events-none transition-colors duration-500`}>
-        <button 
-          onClick={scrollToTop} 
-          className={`pointer-events-auto flex items-center cursor-pointer group transition-opacity duration-300 ${
-            isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-          }`}
+        <button
+          onClick={scrollToTop}
+          className={`pointer-events-auto flex items-center cursor-pointer group transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
         >
           <div className="relative h-8 md:h-10 lg:h-12 w-32 md:w-48 lg:w-56">
             <img
               src="./images/logo1.avif"
               alt="Rishihood University Logo"
-              className={`absolute inset-0 h-full w-auto object-contain brightness-0 invert transition-opacity duration-700 ease-in-out ${
-                showDarkLogo ? 'opacity-0' : 'opacity-100'
-              }`}
+              className={`absolute inset-0 h-full w-auto object-contain brightness-0 invert transition-opacity duration-700 ease-in-out ${showDarkLogo ? 'opacity-0' : 'opacity-100'
+                }`}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <img
               src="./images/logo2.avif"
               alt="Rishihood University Logo"
-              className={`absolute inset-0 h-full w-auto object-contain transition-opacity duration-700 ease-in-out ${
-                showDarkLogo ? 'opacity-100' : 'opacity-0'
-              }`}
+              className={`absolute inset-0 h-full w-auto object-contain transition-opacity duration-700 ease-in-out ${showDarkLogo ? 'opacity-100' : 'opacity-0'
+                }`}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
           </div>
         </button>
 
         <div className="pointer-events-auto flex items-center gap-3">
-            <a href="https://apply.rishihood.edu.in/" target="_blank" rel="noopener noreferrer">
-              <button className="px-4 md:px-5 py-2.5 rounded-full flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] cursor-pointer border border-transparent backdrop-blur-lg bg-[#d00736] text-white hover:bg-[#b0062d]">
-                Apply Now
-                <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.5} />
-              </button>
-            </a>
-           <button
+          <a href="https://apply.rishihood.edu.in/" target="_blank" rel="noopener noreferrer">
+            <button className="px-4 md:px-5 py-2.5 rounded-full flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] cursor-pointer border border-transparent backdrop-blur-lg bg-[#d00736] text-white hover:bg-[#b0062d]">
+              Apply Now
+              <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.5} />
+            </button>
+          </a>
+          <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`px-5 py-2.5 rounded-full flex items-center justify-center gap-3 font-medium text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 cursor-pointer border backdrop-blur-lg min-w-[110px] ${
-              isOpen 
-                ? 'bg-black text-white border-black/20 hover:bg-black/90' 
-                : isScrolled 
-                  ? 'bg-black/80 hover:bg-black text-white border-black/20' 
+            className={`px-5 py-2.5 rounded-full flex items-center justify-center gap-3 font-medium text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:scale-105 cursor-pointer border backdrop-blur-lg min-w-[110px] ${isOpen
+                ? 'bg-black text-white border-black/20 hover:bg-black/90'
+                : isScrolled
+                  ? 'bg-black/80 hover:bg-black text-white border-black/20'
                   : 'bg-white/80 hover:bg-white/90 text-black border-white/20'
-            }`}
+              }`}
           >
             {isOpen ? (
               <div className="flex items-center gap-2">
@@ -170,25 +166,25 @@ export default function Navbar() {
             <div className="absolute top-0 left-0 w-[80vw] h-[80vw] max-w-[800px] max-h-[800px] bg-[radial-gradient(circle,rgba(0,0,0,0.03)_0%,transparent_70%)] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
             <div className="max-w-[1600px] mx-auto min-h-full flex flex-col relative px-4 md:px-12 py-6">
-              
+
               <div className="flex-1 flex flex-col lg:flex-row mt-16 md:mt-24 pb-20 lg:pb-0 relative z-10">
-                
-                <div 
+
+                <div
                   className="w-full lg:w-[65%] flex flex-col gap-2 relative"
                   onMouseLeave={() => !isMobile && setOpenDropdown(null)}
                 >
                   {navData.map((item, idx) => {
                     const number = String(idx + 1).padStart(2, '0');
                     const isActive = openDropdown === item.label;
-                    
+
                     return (
-                      <motion.div 
+                      <motion.div
                         key={item.label}
                         custom={idx}
                         variants={itemVariants}
                         className="flex flex-col relative"
                       >
-                       <button 
+                        <button
                           onClick={() => item.hasDropdown && toggleDropdown(item.label)}
                           onMouseEnter={() => !isMobile && item.hasDropdown && setOpenDropdown(item.label)}
                           className="flex items-center text-left py-2 hover:translate-x-4 transition-transform duration-400 ease-out group cursor-pointer"
@@ -199,14 +195,14 @@ export default function Navbar() {
                               {item.label}
                             </span>
                             {item.hasDropdown && (
-                              <ChevronDown 
+                              <ChevronDown
                                 className={`w-8 h-8 md:w-12 md:h-12 transition-transform duration-500 ease-[0.25,1,0.5,1] ${isActive ? 'rotate-180 text-[#d00736]' : 'text-gray-300 group-hover:text-[#d00736] group-hover:translate-y-1'}`}
                                 strokeWidth={2}
                               />
                             )}
                           </div>
                         </button>
-                        
+
                         <AnimatePresence>
                           {isActive && item.items && (
                             <motion.div
@@ -218,9 +214,9 @@ export default function Navbar() {
                             >
                               <div className="flex flex-col gap-3 py-4 md:py-6">
                                 {item.items.map((subItem, sIdx) => (
-                                  <a 
-                                    key={sIdx} 
-                                    href="#" 
+                                  <a
+                                    key={sIdx}
+                                    href="#"
                                     className="text-[16px] md:text-[20px] lg:text-[24px] text-gray-500 font-normal hover:text-black transition-colors w-max"
                                   >
                                     {subItem}
@@ -235,39 +231,39 @@ export default function Navbar() {
                   })}
                 </div>
 
-                <motion.div 
-                  initial={{ opacity: 0, scaleY: 0 }} 
+                <motion.div
+                  initial={{ opacity: 0, scaleY: 0 }}
                   animate={{ opacity: 1, scaleY: 1 }}
                   transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                   className="hidden lg:block w-px bg-gray-200 absolute right-[35%] top-0 bottom-0 origin-top"
                 />
 
-                <motion.div 
+                <motion.div
                   variants={rightPanelVariants}
                   className="w-full lg:w-[35%] lg:pl-16 xl:pl-24 mt-20 lg:mt-0 flex flex-col justify-between"
                 >
-                   <div className="flex flex-col gap-10">
+                  <div className="flex flex-col gap-10">
                     <div>
                       <h4 className="text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-6 font-mono">Spotlight</h4>
-                      <motion.div 
+                      <motion.div
                         whileHover={{ y: -5 }}
                         className="relative w-full aspect-16/10 rounded-2xl overflow-hidden group/card shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/40 cursor-pointer"
                       >
                         <img src={featuredHighlight.image} alt={featuredHighlight.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110" />
                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-                        
+
                         <div className="absolute top-4 left-4">
                           <span className="bg-white/20 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full border border-white/30">
                             {featuredHighlight.tag}
                           </span>
                         </div>
-                        
+
                         <div className="absolute bottom-6 left-6 right-6">
                           <p className="text-[#d00736] text-[12px] font-bold tracking-wider uppercase mb-1">{featuredHighlight.date}</p>
                           <h5 className="text-white text-[22px] font-bold leading-tight mb-2">{featuredHighlight.title}</h5>
                           <p className="text-white/70 text-[13px] line-clamp-2 leading-relaxed">{featuredHighlight.description}</p>
                         </div>
-                        
+
                         <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 bg-white/10 pointer-events-none" />
                       </motion.div>
                     </div>
