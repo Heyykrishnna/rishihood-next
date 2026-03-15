@@ -274,28 +274,19 @@ export default function Experience() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.exp-pill',
-        { opacity: 0, scale: 0.8, y: 10 },
-        {
-          opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'back.out(1.6)',
-          scrollTrigger: { trigger: '.exp-header', start: 'top 85%' },
-        }
-      );
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      }, { threshold: 0.1 });
 
-      gsap.fromTo(
-        '.exp-ticker',
-        { opacity: 0 },
-        { opacity: 1, duration: 1, ease: 'power2.out', scrollTrigger: { trigger: '.exp-ticker', start: 'top 90%' } }
-      );
-
-      if (tickerRef.current) {
-        const inner = tickerRef.current.querySelector('.ticker-inner');
-        if (inner) gsap.to(inner, { xPercent: -50, ease: 'none', duration: 22, repeat: -1 });
-      }
-
-      gsap.to('.blob-1', { y: 30, x: -20, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-      gsap.to('.blob-2', { y: -25, x: 15, duration: 8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+      const header = sectionRef.current?.querySelector('.exp-header');
+      if (header) observer.observe(header);
+      
+      const ticker = sectionRef.current?.querySelector('.exp-ticker');
+      if (ticker) observer.observe(ticker);
 
       if (!trackRef.current || !pinWrapRef.current) return;
 
@@ -328,7 +319,10 @@ export default function Experience() {
         invalidateOnRefresh: true,
       });
 
-      return () => st.kill();
+      return () => {
+        st.kill();
+        observer.disconnect();
+      };
     }, sectionRef);
 
     return () => ctx.revert();
@@ -349,17 +343,17 @@ export default function Experience() {
       className="w-full bg-[#fcf7ef] font-primary relative overflow-hidden"
     >
       <div
-        className="blob-1 absolute pointer-events-none"
+        className="blob-1 absolute pointer-events-none animate-[blob1_12s_ease-in-out_infinite]"
         style={{ width: 520, height: 520, borderRadius: '50%', background: 'radial-gradient(circle, rgba(208,7,54,0.07) 0%, transparent 70%)', top: -180, right: -160 }}
       />
       <div
-        className="blob-2 absolute pointer-events-none"
+        className="blob-2 absolute pointer-events-none animate-[blob2_16s_ease-in-out_infinite]"
         style={{ width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(179,92,0,0.06) 0%, transparent 70%)', bottom: -120, left: -120 }}
       />
 
       <div ref={pinWrapRef} className="w-full min-h-screen flex flex-col justify-center py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 w-full relative z-10">
-          <div className="exp-header text-center mx-auto mb-10 max-w-3xl">
+          <div className="exp-header text-center mx-auto mb-10 max-w-3xl opacity-0 translate-y-2 scale-90 transition-all duration-700 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] [&.in-view]:opacity-100 [&.in-view]:translate-y-0 [&.in-view]:scale-100">
             <BlurText
               text="Experience Rishihood"
               delay={50}
@@ -372,8 +366,8 @@ export default function Experience() {
             </p>
           </div>
 
-          <div ref={tickerRef} className="exp-ticker w-full overflow-hidden mb-10 py-3 border-y border-[#e6dcc8]">
-            <div className="ticker-inner flex whitespace-nowrap">
+          <div ref={tickerRef} className="exp-ticker w-full overflow-hidden mb-10 py-3 border-y border-[#e6dcc8] opacity-0 transition-opacity duration-1000 ease-out [&.in-view]:opacity-100">
+            <div className="ticker-inner flex whitespace-nowrap animate-[marquee_22s_linear_infinite]">
               {tickerItems.map((exp, i) => (
                 <span key={i} className="inline-flex items-center gap-3 mr-10 text-[11px] font-bold uppercase tracking-[0.22em] shrink-0">
                   <span className="w-1.5 h-1.5 rounded-full inline-block shrink-0" style={{ background: exp.color }} />

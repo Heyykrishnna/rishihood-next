@@ -67,4 +67,24 @@
     height: 0;
     }
   }
+  @keyframes pulse-animation {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 0, 0, 1);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+    }
+  }
+  @keyframes blob1 {
+    0%, 100% { transform: translate(0px, 0px); }
+    50% { transform: translate(-20px, 30px); }
+  }
+  @keyframes blob2 {
+    0%, 100% { transform: translate(0px, 0px); }
+    50% { transform: translate(15px, -25px); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 }

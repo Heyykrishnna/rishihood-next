@@ -1,5 +1,4 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
+import { useRef } from 'react';
 
 interface FeaturedImageCardProps {
   src: string;
@@ -14,87 +13,26 @@ export default function FeaturedImageCard({
   title,
   subtitle = "View More",
 }: FeaturedImageCardProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    const overlay = overlayRef.current;
-    const text = textRef.current;
-
-    if (!container || !overlay || !text) return;
-
-    // Create timeline for hover
-    const tl = gsap.timeline({ paused: true });
-
-    // Animate overlay fill (clip-path animation)
-    tl.to(
-      overlay,
-      {
-        clipPath: 'inset(0%)',
-        duration: 0.6,
-        ease: 'power2.out',
-      },
-      0
-    );
-
-    // Fade in text
-    tl.to(
-      text,
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        ease: 'power2.out',
-      },
-      0.15
-    );
-
-    // Add scale animation to image
-    tl.to(
-      container.querySelector('img'),
-      {
-        scale: 1.05,
-        duration: 0.6,
-        ease: 'power2.out',
-      },
-      0
-    );
-
-    container.addEventListener('mouseenter', () => tl.play());
-    container.addEventListener('mouseleave', () => tl.reverse());
-
-    return () => {
-      container.removeEventListener('mouseenter', () => tl.play());
-      container.removeEventListener('mouseleave', () => tl.reverse());
-    };
-  }, []);
 
   return (
     <div
-      ref={containerRef}
       className="relative w-full h-full rounded-xl overflow-hidden cursor-pointer group"
     >
       {/* Image */}
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-transform duration-600"
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
 
       {/* Black transparent overlay with fill animation */}
       <div
-        ref={overlayRef}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center"
-        style={{
-          clipPath: 'inset(100%)',
-        }}
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center transition-all duration-700 ease-out [clip-path:inset(100%)] group-hover:[clip-path:inset(0%)]"
       >
         {/* Text content */}
         <div
-          ref={textRef}
-          className="text-center px-6 opacity-0 translate-y-4"
+          className="text-center px-6 opacity-0 translate-y-4 transition-all duration-500 ease-out delay-150 group-hover:opacity-100 group-hover:translate-y-0"
         >
           <h3 className="text-white text-xl md:text-2xl font-semibold mb-2">
             {title}

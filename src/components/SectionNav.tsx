@@ -1,9 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
 const navItems = [
   { label: 'Home',        href: '#hero' },
   { label: 'About',       href: '#stats' },
@@ -15,31 +10,22 @@ const navItems = [
 export default function SectionNav() {
   const [activeSection, setActiveSection] = useState('hero');
   const [visible, setVisible] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
-    const trigger = ScrollTrigger.create({
-      trigger: '#stats',
-      start: 'top 80%',
-      onEnter: () => setVisible(true),
-      onLeaveBack: () => setVisible(false),
-    });
-    return () => trigger.kill();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting || entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 }
+    );
+    
+    const target = document.querySelector('#stats');
+    if (target) observer.observe(target);
+    
+    return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!navRef.current) return;
-    if (visible) {
-      gsap.fromTo(navRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.55, ease: 'back.out(1.4)' }
-      );
-    } else {
-      gsap.to(navRef.current, { y: 20, opacity: 0, duration: 0.3, ease: 'power2.in' });
-    }
-  }, [visible]);
 
   useEffect(() => {
     const sections = navItems.map(n => document.querySelector(n.href) as HTMLElement | null);
@@ -60,12 +46,8 @@ export default function SectionNav() {
     const el = itemsRef.current[idx];
     const pill = pillRef.current;
     if (!el || !pill) return;
-    gsap.to(pill, {
-      left: el.offsetLeft,
-      width: el.offsetWidth,
-      duration: 0.4,
-      ease: 'power3.out',
-    });
+    pill.style.left = `${el.offsetLeft}px`;
+    pill.style.width = `${el.offsetWidth}px`;
   };
 
   useEffect(() => { movePill(activeSection); }, [activeSection]);
@@ -85,9 +67,7 @@ export default function SectionNav() {
 
   return (
     <nav
-      ref={navRef}
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-200 pointer-events-auto hidden md:block"
-      style={{ opacity: 0 }}
+      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-200 pointer-events-auto hidden md:block transition-all duration-500 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${visible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
     >
       <div
         className="relative flex items-center px-1.5 py-1.5 rounded-2xl"
@@ -101,7 +81,7 @@ export default function SectionNav() {
       >
         <div
           ref={pillRef}
-          className="absolute top-1.5 bottom-1.5 rounded-xl pointer-events-none"
+          className="absolute top-1.5 bottom-1.5 rounded-xl pointer-events-none transition-all duration-400 ease-out"
           style={{
             left: 6,
             width: 60,

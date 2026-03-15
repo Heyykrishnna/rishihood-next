@@ -3,14 +3,10 @@
 import { useEffect, useRef } from 'react';
 import { Instagram, Youtube, MapPin, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const containerRef = useRef<HTMLElement>(null);
@@ -18,47 +14,27 @@ export default function Footer() {
   const linksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (textRef.current) {
-        gsap.fromTo(
-          textRef.current,
-          { opacity: 0, y: 150, scale: 0.9 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.5,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 70%",
-              end: "bottom bottom",
-              scrub: 1,
-            }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
           }
-        );
-      }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-      if (linksRef.current) {
-        const elements = linksRef.current.querySelectorAll('.footer-col');
-        gsap.fromTo(
-          elements,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: "top 80%",
-            }
-          }
-        );
-      }
-    }, containerRef);
-    return () => ctx.revert();
+    if (textRef.current) {
+      observer.observe(textRef.current);
+    }
+
+    if (linksRef.current) {
+      const elements = linksRef.current.querySelectorAll('.footer-col');
+      elements.forEach(el => observer.observe(el));
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -71,7 +47,7 @@ export default function Footer() {
         
         <div ref={linksRef} className="flex flex-col xl:flex-row justify-between w-full gap-16 xl:gap-8 mb-20">
           
-          <div className="w-full xl:w-4/12 flex flex-col justify-between footer-col">
+          <div className="w-full xl:w-4/12 flex flex-col justify-between footer-col opacity-0 translate-y-10 transition-all duration-[1000ms] ease-out [&.in-view]:opacity-100 [&.in-view]:translate-y-0 delay-100">
             <div>
               <img
                 src="https://framerusercontent.com/images/NKvCUEL0ORnQgJto11PdvOykNk.png?scale-down-to=512&width=704&height=280"
@@ -106,7 +82,7 @@ export default function Footer() {
           </div>
 
           <div className="w-full xl:w-8/12 flex flex-col justify-between">
-            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-4 mb-20 footer-col">
+            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-4 mb-20 footer-col opacity-0 translate-y-10 transition-all duration-[1000ms] ease-out [&.in-view]:opacity-100 [&.in-view]:translate-y-0 delay-200">
               <div className="flex flex-col gap-5">
                 <h4 className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555] mb-2">Explore</h4>
                 {['Our Story', 'Leadership', 'Academics', 'Campus Life'].map((item) => (
@@ -153,7 +129,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mt-auto border-t border-white/10 pt-10 footer-col">
+            <div className="w-full flex flex-col md:flex-row items-start md:items-end justify-between gap-8 mt-auto border-t border-white/10 pt-10 footer-col opacity-0 translate-y-10 transition-all duration-[1000ms] ease-out [&.in-view]:opacity-100 [&.in-view]:translate-y-0 delay-300">
               <div className="flex flex-col gap-5">
                 <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#555]">Connect With Us</span>
                 <div className="flex items-center gap-3">
@@ -194,7 +170,7 @@ export default function Footer() {
       </div>
 
       <div className="w-full flex justify-center items-end mt-auto px-4 md:px-8 xl:px-12 pb-4 overflow-hidden relative">
-        <div ref={textRef} className="w-full flex justify-center relative items-center min-h-[150px] md:min-h-[300px]">
+        <div ref={textRef} className="w-full flex justify-center relative items-center min-h-[150px] md:min-h-[300px] opacity-0 text-reveal transition-all duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[150px] scale-90 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 [&.in-view]:scale-100">
           <TextHoverEffect text="RISHIHOOD" />
         </div>
       </div>

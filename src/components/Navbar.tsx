@@ -124,7 +124,7 @@ export default function Navbar() {
 
         <div className="pointer-events-auto flex items-center gap-3">
           <a href="https://apply.rishihood.edu.in/" target="_blank" rel="noopener noreferrer">
-            <button className="px-4 md:px-5 py-2.5 rounded-full flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] cursor-pointer border border-transparent backdrop-blur-lg bg-[#d00736] animate-pulse text-white hover:bg-[#b0062d]">
+            <button className="px-4 md:px-5 py-2.5 rounded-full flex items-center justify-center gap-2 font-medium text-[14px] md:text-[15px] tracking-wide transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.12)] cursor-pointer border border-transparent backdrop-blur-lg bg-[#d00736] text-white hover:bg-[#b0062d] animate-[pulse-animation_1.5s_infinite] shadow-[#d00736]/40">
               Apply Now
               <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" strokeWidth={1.5} />
             </button>
@@ -294,7 +294,7 @@ export default function Navbar() {
                   <div className="mt-16 lg:mt-auto relative group self-start">
                     <div className="absolute -inset-4 bg-[radial-gradient(circle,rgba(0,0,0,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-full" />
                     <a href="https://apply.rishihood.edu.in/" target="_blank" rel="noopener noreferrer">
-                      <button className="bg-black text-white px-8 py-4 rounded-full cursor-pointer flex items-center gap-3 font-medium text-[15px] hover:bg-[#111] transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.15)] animate-pulse hover:shadow-[0_12px_40px_rgba(0,0,0,0.25)]">
+                      <button className="bg-black text-white px-8 py-4 rounded-full cursor-pointer flex items-center gap-3 font-medium text-[15px] hover:bg-[#111] transition-all duration-300 animate-[pulse-animation_2s_infinite] shadow-black/40">
                         Apply Now
                         <ArrowUpRight className="w-4 h-4 opacity-80" strokeWidth={2} />
                       </button>
