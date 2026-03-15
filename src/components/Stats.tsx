@@ -1,7 +1,42 @@
-import type { ReactNode } from 'react';
-import { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useInView, animate } from 'framer-motion';
+import { useEffect, useState, useRef, type ReactNode } from 'react';
 import BlurText from './BlurText';
+
+function CountUp({ 
+  to, 
+  from = 1, 
+  duration = 1.5, 
+  delay = 0,
+  className = "" 
+}: { 
+  to: number; 
+  from?: number; 
+  duration?: number; 
+  delay?: number;
+  className?: string 
+}) {
+  const count = useMotionValue(from);
+  const [displayValue, setDisplayValue] = useState(from.toLocaleString());
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.4 });
+
+  useEffect(() => {
+    if (isInView) {
+      const timeout = setTimeout(() => {
+        animate(count, to, {
+          duration: duration,
+          ease: "easeOut",
+          onUpdate: (latest) => {
+            setDisplayValue(Math.round(latest).toLocaleString());
+          }
+        });
+      }, delay * 1000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isInView, count, to, duration, delay]);
+
+  return <motion.span ref={ref} className={className}>{displayValue}</motion.span>;
+}
 
 function ScrubCard({ children, direction, className }: { children: ReactNode; direction: 'left' | 'right'; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -155,11 +190,8 @@ export default function Stats() {
             />
             
             <div className="relative z-10 flex items-end mb-2">
-              <BlurText
-                text="2,800"
-                delay={50}
-                animateBy="letters"
-                direction="bottom"
+              <CountUp
+                to={2800}
                 className="text-5xl md:text-6xl lg:text-[80px] font-semibold text-[#111] leading-none tracking-tight
                   transition-colors duration-300 group-hover:text-[#d00736]"
               />
@@ -189,11 +221,8 @@ export default function Stats() {
             <div className="relative z-10 flex flex-col lg:flex-row justify-between h-full gap-4 lg:gap-8">
               <div className="flex-1 flex flex-col justify-start lg:justify-center">
                 <div className="flex items-end mb-1 lg:mb-2">
-                  <BlurText
-                    text="50"
-                    delay={50}
-                    animateBy="letters"
-                    direction="bottom"
+                  <CountUp
+                    to={50}
                     className="text-5xl md:text-6xl lg:text-[80px] font-semibold text-[#111] leading-none tracking-tight
                       transition-colors duration-300 group-hover:text-[#d00736]"
                   />
