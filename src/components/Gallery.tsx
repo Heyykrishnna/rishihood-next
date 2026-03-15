@@ -4,25 +4,25 @@ import { useEffect, useRef, useCallback, useState } from 'react';
 import BlurText from './BlurText';
 
 const row1Images = [
-  './images/Gallery/g1.avif',
-  './images/Gallery/g2.avif',
-  './images/Gallery/g3.jpg',
-  './images/Gallery/g4.jpg',
-  './images/Gallery/g5.avif',
-  './images/Gallery/g6.avif',
-  './images/Gallery/g7.avif',
-  './images/Gallery/g8.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g1_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g2_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g3_compressed.jpg',
+  'https://res.cloudinary.com/dpod2sj9t/image/upload/v1773570413/g4_compressed_sia7gx.jpg',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g5_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g6_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g7_compressed.avif',
+  'https://res.cloudinary.com/dpod2sj9t/image/upload/v1773570412/g8_compressed_ktdesc.avif',
 ];
 
 const row2Images = [
-  './images/Gallery/g9.jpg',
-  './images/Gallery/g10.avif',
-  './images/Gallery/g11.avif',
-  './images/Gallery/g12.jpg',
-  './images/Gallery/g5.avif',
-  './images/Gallery/g6.avif',
-  './images/Gallery/g7.avif',
-  './images/Gallery/g8.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g9_compressed.jpg',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g10_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g11_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g12_compressed.jpg',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g5_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g6_compressed.avif',
+  'https://ik.imagekit.io/yatharthkhandelwal/Dev%20R-Uni/g7_compressed.avif',
+  'https://res.cloudinary.com/dpod2sj9t/image/upload/v1773570412/g8_compressed_ktdesc.avif',
 ];
 
 const row1 = [...row1Images, ...row1Images, ...row1Images];

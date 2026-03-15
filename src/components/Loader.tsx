@@ -22,13 +22,13 @@ const Loader = ({ show }: { show: boolean }) => {
             duration: 1.5, 
             ease: [0.76, 0, 0.24, 1] 
           }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505] overflow-hidden"
+          className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#050505] overflow-hidden"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.5, rotate: 0 }}
             animate={{ opacity: 1, scale: 1, rotate: 360 }}
             transition={{ duration: 10, ease: "linear", repeat: Infinity }}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] md:w-[60vw] md:h-[60vw] bg-gradient-to-tr from-[#d00736]/10 via-transparent to-[#ffffff]/5 blur-[80px] rounded-full pointer-events-none z-[0]"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] md:w-[60vw] md:h-[60vw] bg-linear-to-tr from-[#d00736]/10 via-transparent to-[#ffffff]/5 blur-[80px] rounded-full pointer-events-none z-0"
           />
 
           <motion.div
@@ -91,7 +91,7 @@ const Loader = ({ show }: { show: boolean }) => {
               ease: [0.76, 0, 0.24, 1],
               delay: 1.6,
             }}
-            className="h-[2px] bg-gradient-to-r from-transparent via-[#d00736] to-transparent mt-2 md:mt-4 shadow-[0_0_20px_rgba(208,7,54,1)] rounded-full relative z-10"
+            className="h-[2px] bg-linear-to-r from-transparent via-[#d00736] to-transparent mt-2 md:mt-4 shadow-[0_0_20px_rgba(208,7,54,1)] rounded-full relative z-10"
           />
 
         </motion.div>

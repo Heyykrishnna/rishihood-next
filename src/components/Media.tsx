@@ -105,7 +105,7 @@ export default function Media(){
                       
                             className="object-cover transition-transform duration-300 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 text-white">
                             <p className="text-xs sm:text-sm mb-2">{featuredCard.source} | {featuredCard.date}</p>
                             <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-4 line-clamp-3 sm:line-clamp-none">{featuredCard.title}</h3>
@@ -122,7 +122,7 @@ export default function Media(){
                                 key={item.id}
                                 className="flex gap-3 sm:gap-4 overflow-hidden border-b border-gray transition-shadow cursor-pointer p-3 sm:p-4 hover:bg-gray-50"
                             >
-                                <div className="relative w-24 sm:w-32 md:w-40 h-24 sm:h-32 flex-shrink-0 rounded-lg sm:rounded-xl overflow-hidden">
+                                <div className="relative w-24 sm:w-32 md:w-40 h-24 sm:h-32 shrink-0 rounded-lg sm:rounded-xl overflow-hidden">
                                     <img 
                                         src={item.image}
                                         alt={item.title}
