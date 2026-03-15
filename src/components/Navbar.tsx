@@ -14,6 +14,14 @@ const navData = [
   { label: "Venture Studio", hasDropdown: false },
 ];
 
+const featuredHighlight = {
+  title: "2026 Onboarding Day",
+  date: "August 10, 2026",
+  description: "The Onboarding Day for new students at Rishihood University.",
+  image: "./images/Hero/Uni.avif",
+  tag: "Featured Event"
+};
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -165,7 +173,10 @@ export default function Navbar() {
               
               <div className="flex-1 flex flex-col lg:flex-row mt-16 md:mt-24 pb-20 lg:pb-0 relative z-10">
                 
-                <div className="w-full lg:w-[65%] flex flex-col gap-2 relative">
+                <div 
+                  className="w-full lg:w-[65%] flex flex-col gap-2 relative"
+                  onMouseLeave={() => !isMobile && setOpenDropdown(null)}
+                >
                   {navData.map((item, idx) => {
                     const number = String(idx + 1).padStart(2, '0');
                     const isActive = openDropdown === item.label;
@@ -179,6 +190,7 @@ export default function Navbar() {
                       >
                        <button 
                           onClick={() => item.hasDropdown && toggleDropdown(item.label)}
+                          onMouseEnter={() => !isMobile && item.hasDropdown && setOpenDropdown(item.label)}
                           className="flex items-center text-left py-2 hover:translate-x-4 transition-transform duration-400 ease-out group cursor-pointer"
                         >
                           <span className="text-gray-400 font-mono text-[11px] md:text-[13px] mr-6 md:mr-10 font-medium tracking-widest mt-2">{number}</span>
@@ -234,7 +246,32 @@ export default function Navbar() {
                   variants={rightPanelVariants}
                   className="w-full lg:w-[35%] lg:pl-16 xl:pl-24 mt-20 lg:mt-0 flex flex-col justify-between"
                 >
-                  <div className="flex flex-col gap-10">
+                   <div className="flex flex-col gap-10">
+                    <div>
+                      <h4 className="text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-6 font-mono">Spotlight</h4>
+                      <motion.div 
+                        whileHover={{ y: -5 }}
+                        className="relative w-full aspect-16/10 rounded-2xl overflow-hidden group/card shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-white/40 cursor-pointer"
+                      >
+                        <img src={featuredHighlight.image} alt={featuredHighlight.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                        
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-white/20 backdrop-blur-md text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full border border-white/30">
+                            {featuredHighlight.tag}
+                          </span>
+                        </div>
+                        
+                        <div className="absolute bottom-6 left-6 right-6">
+                          <p className="text-[#d00736] text-[12px] font-bold tracking-wider uppercase mb-1">{featuredHighlight.date}</p>
+                          <h5 className="text-white text-[22px] font-bold leading-tight mb-2">{featuredHighlight.title}</h5>
+                          <p className="text-white/70 text-[13px] line-clamp-2 leading-relaxed">{featuredHighlight.description}</p>
+                        </div>
+                        
+                        <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 bg-white/10 pointer-events-none" />
+                      </motion.div>
+                    </div>
+
                     <div>
                       <h4 className="text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-6 font-mono">Connect</h4>
                       <div className="flex flex-wrap gap-3">
@@ -252,7 +289,7 @@ export default function Navbar() {
 
                     <div>
                       <h4 className="text-[11px] font-bold tracking-widest text-gray-400 uppercase mb-4 font-mono">Get in Touch</h4>
-                      <a href="mailto:namaste@rishihood.edu.in" className="text-[18px] md:text-[22px] font-medium text-black hover:text-[#d00736] transition-colors break-all">
+                      <a href="mailto:namaste@rishihood.edu.in" className="text-[18px] md:text-[22px] font-medium text-black hover:text-[#d00736] transition-colors break-all leading-tight">
                         namaste@rishihood.edu.in
                       </a>
                     </div>
