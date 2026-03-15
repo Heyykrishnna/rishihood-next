@@ -163,7 +163,7 @@ export default function Hero() {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 lg:mt-8 pointer-events-auto w-full max-w-md md:max-w-none">
-                  <button className="w-full sm:w-auto bg-[#d00736] hover:bg-[#a8002a] transition-colors duration-300 text-white px-10 py-3 sm:py-3.5 rounded-lg md:rounded-md font-light text-[15px] sm:text-base shadow-lg cursor-pointer">
+                  <button className="w-full sm:w-auto bg-[#d00736] hover:bg-[#a8002a] transition-colors duration-300 text-white px-10 py-3 sm:py-3.5 rounded-lg md:rounded-md font-light text-[15px] sm:text-base shadow-lg cursor-pointer animate-pulse">
                     Apply now
                   </button>
                   <button className="w-full sm:w-auto bg-transparent border border-white hover:bg-white/10 transition-colors duration-300 text-white px-10 py-3 sm:py-3.5 rounded-lg md:rounded-md font-light text-[15px] sm:text-base shadow-lg cursor-pointer">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import SmoothScroll from '@/components/SmoothScroll';
+import FloatingBrochureButton from '@/components/FloatingBrochureButton';
 
 export const metadata: Metadata = {
   title: 'Rishihood University',
@@ -24,6 +25,7 @@ export default function RootLayout({
       </head>
       <body>
         <SmoothScroll>{children}</SmoothScroll>
+        <FloatingBrochureButton />
       </body>
     </html>
   );
